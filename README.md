@@ -1,75 +1,63 @@
-# React + TypeScript + Vite
+![Yofolio: an open-source portfolio starter kit](https://github.com/user-attachments/assets/7bba3591-afdb-46f0-8349-fef9a6e28ee8)
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+# Yofolio: An Open-Source Portfolio Starter Kit
 
-Currently, two official plugins are available:
+[yofolio.design](https://yofolio.design/)
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+Kickstart your professional online presence with our lightweight, easy-to-build, portfolio starter kit. Perfect for creatives who want a clean, professional HTML-based portfolio without the complexity. Clone, customize, and deploy in minutes with Netlify.
 
-## React Compiler
+Built with Bootstrap and Vite, this open-source solution offers a perfect balance of simplicity and customization for developers and creatives.
 
-The React Compiler is enabled on this template. See [this documentation](https://react.dev/learn/react-compiler) for more information.
+## Features
 
-Note: This will impact Vite dev & build performances.
+- **Bootstrap Framework:** Leverage the latest Bootstrap features for responsive layouts and modern components
+- **Vite Build System:** Enjoy lightning-fast development with hot module replacement and optimized builds
+- **One-Page Design:** Present all your information elegantly on a single, scrollable page
+- **Portfolio Sections:** Pre-built areas for about, projects, skills, and contact information
+- **Easy Customization:** Well-organized SCSS theme
 
-## Expanding the ESLint configuration
+## Technical Details
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+- Modern vanilla JavaScript with no complex dependencies
+- SCSS custom [theme mapping](THEME.md)
+- Optimized asset handling through Vite
+- Includes common portfolio components and layouts
 
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+## Roadmap
 
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
+### Q4 2024 ([release](https://github.com/ericthayer/portfolio-starter-kit/releases/tag/0.40.0))
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
+- **Landing Page:** responsive layout, core functionality
+- **Styled Theme:** SCSS mapping & theme system
+- **Lighthouse:** monitring performance and accessibility
+- **PWA:** passing Progressive Web App standards
+- **Deploy Pipeline:** auto-deployed and hosted on Netlify
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+### Q1 2025
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+- **Resume Templates:** HTML, Word/PDF
+- **Example Templates:** demo templates
+    - **Case Study:** featured project article (in-depth, media-heavy)
+    - **Broshure:** related work/skills example (consise and informative)
+    - **Coverletter:** audience specific callout or engagement (brief and engaging)
+    - **Postcard:** insights highlighting examples of expertise (compact-form, links to work)
 
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
+### Q2 2025
+
+- **Admin Panel:** access app configs (view-only)
+    - **Application:** view application metadata
+    - **Theme Builder:** view theme information
+    - **Export Site:** export site via .zip
+- **Onboarding:** documentation and supporting media
+
+### Q3 2025
+
+- **App Config:** update metadata & deploy build
+- **CMS:** update & manage content types
+- **Theme Builder:** update look & feel via UI
+
+### Q4 2025 (v1.0.0-beta)
+
+- **Multi-page Support:** create & deploy multiple templates
+<!-- - **Vue/React Support:** optional SPA support -->
+<!-- - **Visual Testing:** Chromatic integration -->
