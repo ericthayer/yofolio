@@ -59,5 +59,5 @@ Built with Bootstrap and Vite, this open-source solution offers a perfect balanc
 ### Q4 2025 (v1.0.0-beta)
 
 - **Multi-page Support:** create & deploy multiple templates
-<!-- - **Vue/React Support:** optional SPA support -->
-<!-- - **Visual Testing:** Chromatic integration -->
+- **Vue/React Support:** optional SPA support
+- **Visual Testing:** Chromatic integration
