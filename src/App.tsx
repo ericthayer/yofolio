@@ -7,16 +7,23 @@ import Box from '@mui/material/Box';
 import CssBaseline from '@mui/material/CssBaseline';
 import Container from '@mui/material/Container';
 import AppBar from '@mui/material/AppBar';
-import Toolbar from '@mui/material/Toolbar';
-import Typography from '@mui/material/Typography';
+import Link from '@mui/material/Link';
+import List from '@mui/material/List';
+import ListItem from '@mui/material/ListItem';
+import ListItemButton from '@mui/material/ListItemButton';
+import ListItemText from '@mui/material/ListItemText';
 import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
 import IconButton from '@mui/material/IconButton';
 import Stack from '@mui/material/Stack';
+import Toolbar from '@mui/material/Toolbar';
+import Typography from '@mui/material/Typography';
 
 import LightModeIcon from '@mui/icons-material/LightMode';
 import DarkModeIcon from '@mui/icons-material/DarkMode';
 import SettingsBrightnessIcon from '@mui/icons-material/SettingsBrightness';
+
+import AppLogo from './assets/images/logo-light-ethayer-no-mark.svg'; // --- IGNORE ---
 
 import {
   lightThemeWithComponents,
@@ -89,57 +96,125 @@ function App() {
       >
         <Toolbar
           className='app-toolbar'
-          sx={{ justifyContent: 'space-between' }}
+          sx={{
+            justifyContent: 'space-between',
+            flexWrap: 'wrap',
+            px: { xs: 1.5 },
+          }}
         >
-          <Stack className='app-logo'>Yofolio</Stack>
-          <Stack flexDirection='row'>
-            <IconButton
-              color='inherit'
-              onClick={handleMenuOpen}
-              aria-label='theme options'
+          {/* AppBar Left */}
+          <Stack className='appbar-left'>
+            <Stack
+              direction='row'
+              alignItems='center'
+              gap={1}
             >
-              {themeMode === 'light' && <LightModeIcon />}
-              {themeMode === 'dark' && <DarkModeIcon />}
-              {themeMode === 'system' && <SettingsBrightnessIcon />}
-            </IconButton>
-            <Menu
-              anchorEl={anchorEl}
-              open={Boolean(anchorEl)}
-              onClose={handleMenuClose}
-              anchorOrigin={{
-                vertical: 'bottom',
-                horizontal: 'right',
-              }}
-              transformOrigin={{
-                vertical: 'top',
-                horizontal: 'right',
-              }}
-            >
-              <MenuItem
-                onClick={() => handleThemeChange('light')}
-                selected={themeMode === 'light'}
+              {/* Mode Switcher */}
+              <Stack flexDirection='row' alignItems='center'>
+                <IconButton
+                  color='inherit'
+                  onClick={handleMenuOpen}
+                  aria-label='theme options'
+                  sx={{ alignSelf: 'center' }}
+                >
+                  {themeMode === 'light' && <LightModeIcon />}
+                  {themeMode === 'dark' && <DarkModeIcon />}
+                  {themeMode === 'system' && <SettingsBrightnessIcon />}
+                </IconButton>
+                <Menu
+                  anchorEl={anchorEl}
+                  open={Boolean(anchorEl)}
+                  onClose={handleMenuClose}
+                  anchorOrigin={{
+                    vertical: 'bottom',
+                    horizontal: 'right',
+                  }}
+                  transformOrigin={{
+                    vertical: 'top',
+                    horizontal: 'right',
+                  }}
+                >
+                  <MenuItem
+                    onClick={() => handleThemeChange('light')}
+                    selected={themeMode === 'light'}
+                  >
+                    <LightModeIcon sx={{ mr: 1 }} />
+                    Light
+                  </MenuItem>
+                  <MenuItem
+                    onClick={() => handleThemeChange('dark')}
+                    selected={themeMode === 'dark'}
+                  >
+                    <DarkModeIcon sx={{ mr: 1 }} />
+                    Dark
+                  </MenuItem>
+                  <MenuItem
+                    onClick={() => handleThemeChange('system')}
+                    selected={themeMode === 'system'}
+                  >
+                    <SettingsBrightnessIcon sx={{ mr: 1 }} />
+                    System
+                  </MenuItem>
+                </Menu>
+              </Stack>
+              {/* Logo */}
+              <Stack className='app-logo'>
+                <Link
+                  href='/'
+                  sx={{
+                    display: 'flex',
+                  }}
+                >
+                  <img
+                    loading='lazy'
+                    src={AppLogo}
+                    alt='logo'
+                    height='15.2'
+                    width='176'
+                    style={{
+                      filter: themeMode === 'light' ? 'invert(1)' : 'none',
+                    }}
+                  />
+                </Link>
+              </Stack>
+            </Stack>
+          </Stack>
+          {/* AppBar Right */}
+          <Stack
+            className='appbar-right'
+            flexDirection='row'
+          >
+            {/* Main Navigation */}
+            <nav aria-label='main navigation'>
+              <List
+                sx={{ display: 'flex', flexDirection: 'row', gap: 1, p: 0 }}
               >
-                <LightModeIcon sx={{ mr: 1 }} />
-                Light
-              </MenuItem>
-              <MenuItem
-                onClick={() => handleThemeChange('dark')}
-                selected={themeMode === 'dark'}
-              >
-                <DarkModeIcon sx={{ mr: 1 }} />
-                Dark
-              </MenuItem>
-              <MenuItem
-                onClick={() => handleThemeChange('system')}
-                selected={themeMode === 'system'}
-              >
-                <SettingsBrightnessIcon sx={{ mr: 1 }} />
-                System
-              </MenuItem>
-            </Menu>
+                <ListItem disablePadding>
+                  <ListItemButton>
+                    <ListItemText primary='About' />
+                  </ListItemButton>
+                </ListItem>
+                <ListItem disablePadding>
+                  <ListItemButton>
+                    <ListItemText primary='Experience' />
+                  </ListItemButton>
+                </ListItem>
+                <ListItem disablePadding>
+                  <ListItemButton>
+                    <ListItemText primary='Resume' />
+                  </ListItemButton>
+                </ListItem>
+                <ListItem disablePadding>
+                  <ListItemButton>
+                    <ListItemText primary='Contact' />
+                  </ListItemButton>
+                </ListItem>
+              </List>
+            </nav>
           </Stack>
         </Toolbar>
       </AppBar>
+      {/* Main Content */}
       <Stack
         component='main'
         gap={0}
@@ -152,7 +227,7 @@ function App() {
         >
           <Container
             className='billboard-container'
-            maxWidth='lg'
+            maxWidth={false}
             sx={{
               containerType: 'inline-size',
               py: 'clamp(4rem, 4vw, 7rem)',

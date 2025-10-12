@@ -7,7 +7,6 @@ const theme = createTheme();
 export const brandedComponents: ThemeOptions['components'] = {
   MuiCssBaseline: {
     styleOverrides: {
-      root: {},
       ':root': {
         colorScheme: 'light dark',
         fontSynthesis: 'none',
@@ -51,11 +50,6 @@ export const brandedComponents: ThemeOptions['components'] = {
     defaultProps: {
       disableRipple: false,
     },
-    styleOverrides: {
-      root: {
-        minHeight: 44,
-      },
-    },
   },
   MuiButton: {
     defaultProps: {
@@ -63,16 +57,12 @@ export const brandedComponents: ThemeOptions['components'] = {
     },
     styleOverrides: {
       root: {
+        minHeight: 44,
         minWidth: 'unset',
         textTransform: 'capitalize',
         fontWeight: theme.typography.fontWeightBold,
         borderRadius: 6,
       },
-    },
-  },
-  MuiCard: {
-    styleOverrides: {
-      root: {},
     },
   },
 };
