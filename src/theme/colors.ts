@@ -12,16 +12,16 @@ export const colors = {
     900: '#4f0031',
   },
   secondary: {
-    50: '#f8fafc',
-    100: '#f1f5f9',
-    200: '#e2e8f0',
-    300: '#cbd5e1',
-    400: '#94a3b8',
-    500: '#64748b',
-    600: '#475569',
-    700: '#334155',
-    800: '#1e293b',
-    900: '#0f172a',
+    50: '#f1f2f4ff',
+    100: '#f0f2f4',
+    200: '#e8eaee',
+    300: '#dce0e5',
+    400: '#c1c7cd',
+    500: '#babfc5',
+    600: '#9aa1a7',
+    700: '#838c96',
+    800: '#4e555c',
+    900: '#3f454b',
   },
   accent: {
     50: '#eef4ff',
@@ -72,8 +72,8 @@ export const colors = {
     900: '#7f1d1d',
   },
   background: {
-    default: '#f7f7f7',
-    paper: '#fcfcfc',
+    default: '#fcfcfc',
+    paper: '#f7f7f7',
   },
 };
 

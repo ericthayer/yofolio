@@ -1,13 +1,17 @@
 import { createTheme } from '@mui/material/styles';
 import type { ThemeOptions } from '@mui/material/styles';
 import colors from './colors';
+import { brandedComponents } from './components';
+
+// Re-export for convenience
+export { brandedComponents };
 
 const baseTheme: ThemeOptions = {
   typography: {
     fontFamily:
       "'DM Sans Variable', system-ui, Avenir, Helvetica, Arial, sans-serif",
     h1: {
-      fontSize: '3.5rem',
+      fontSize: 'clamp(3rem, calc(1.525rem + 3.3vw), 4rem)',
       fontWeight: 700,
       lineHeight: 1.2,
       letterSpacing: '-0.02em',
@@ -64,7 +68,7 @@ export const lightTheme = createTheme({
     },
     secondary: {
       main: colors.secondary[500],
-      light: colors.secondary[300],
+      light: colors.secondary[50],
       dark: colors.secondary[700],
     },
     background: {
@@ -84,8 +88,13 @@ export const darkTheme = createTheme({
     mode: 'dark',
     primary: {
       main: colors.primary[700],
-      light: colors.primary[600],
-      dark: colors.secondary[600],
+      light: colors.primary[500],
+      dark: colors.primary[900],
+    },
+    secondary: {
+      main: colors.secondary[800],
+      light: colors.secondary[600],
+      dark: colors.secondary[700],
     },
     background: {
       default: colors.secondary[900],
@@ -106,53 +115,6 @@ export const brandedTokens: ThemeOptions = {
   },
 };
 
-export const brandedComponents: ThemeOptions['components'] = {
-  MuiCssBaseline: {
-    styleOverrides: {
-      ':root': {
-        colorScheme: 'light dark',
-        fontSynthesis: 'none',
-        textRendering: 'optimizeLegibility',
-        WebkitFontSmoothing: 'antialiased',
-        MozOsxFontSmoothing: 'grayscale',
-      },
-      p: {
-        textWrap: 'pretty',
-      },
-    },
-  },
-  MuiAppBar: {
-    styleOverrides: {
-      root: {
-        backgroundColor: colors.primary[800],
-      },
-    },
-  },
-  MuiButtonBase: {
-    defaultProps: {
-      disableRipple: false,
-    },
-  },
-  MuiButton: {
-    defaultProps: {
-      disableElevation: true,
-    },
-    styleOverrides: {
-      root: {
-        minWidth: 'unset',
-        textTransform: 'capitalize',
-        fontWeight: 600,
-        borderRadius: 6,
-      },
-    },
-  },
-  MuiCard: {
-    styleOverrides: {
-      root: {},
-    },
-  },
-};
-
 // Create themed versions with components
 export const lightThemeWithComponents = createTheme({
   ...lightTheme,
@@ -167,19 +129,3 @@ export const darkThemeWithComponents = createTheme({
     ...brandedComponents,
   },
 });
-
-// const brandedTheme = createTheme({
-//   ...brandedTokens,
-//   palette: {
-//     ...(window.matchMedia('(prefers-color-scheme: dark)').matches
-//       ? darkTheme.palette
-//       : localStorage.getItem('theme') === 'dark'
-//       ? darkTheme.palette
-//       : lightTheme.palette),
-//   },
-//   components: {
-//     ...brandedComponents,
-//   },
-// });
-
-// export default brandedTheme;
