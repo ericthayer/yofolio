@@ -54,6 +54,7 @@ const baseTheme: ThemeOptions = {
 };
 
 export const lightTheme = createTheme({
+  ...baseTheme,
   palette: {
     mode: 'light',
     primary: {
@@ -101,7 +102,7 @@ export const brandedTokens: ThemeOptions = {
   ...baseTheme,
   palette: {
     ...lightTheme.palette,
-    // ...darkTheme.palette,
+    ...darkTheme.palette,
   },
 };
 
@@ -118,6 +119,18 @@ export const brandedComponents: ThemeOptions['components'] = {
       p: {
         textWrap: 'pretty',
       },
+    },
+  },
+  MuiAppBar: {
+    styleOverrides: {
+      root: {
+        backgroundColor: colors.primary[800],
+      },
+    },
+  },
+  MuiButtonBase: {
+    defaultProps: {
+      disableRipple: false,
     },
   },
   MuiButton: {
@@ -140,18 +153,33 @@ export const brandedComponents: ThemeOptions['components'] = {
   },
 };
 
-const brandedTheme = createTheme({
-    ...brandedTokens,
-    palette: {
-        ...(window.matchMedia('(prefers-color-scheme: dark)').matches
-            ? darkTheme.palette
-            : localStorage.getItem('theme') === 'dark'
-                ? darkTheme.palette
-                : lightTheme.palette),
-    },
-    components: {
-        ...brandedComponents,
-    },
+// Create themed versions with components
+export const lightThemeWithComponents = createTheme({
+  ...lightTheme,
+  components: {
+    ...brandedComponents,
+  },
 });
 
-export default brandedTheme;
+export const darkThemeWithComponents = createTheme({
+  ...darkTheme,
+  components: {
+    ...brandedComponents,
+  },
+});
+
+// const brandedTheme = createTheme({
+//   ...brandedTokens,
+//   palette: {
+//     ...(window.matchMedia('(prefers-color-scheme: dark)').matches
+//       ? darkTheme.palette
+//       : localStorage.getItem('theme') === 'dark'
+//       ? darkTheme.palette
+//       : lightTheme.palette),
+//   },
+//   components: {
+//     ...brandedComponents,
+//   },
+// });
+
+// export default brandedTheme;
