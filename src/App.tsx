@@ -23,7 +23,12 @@ import LightModeIcon from '@mui/icons-material/LightMode';
 import DarkModeIcon from '@mui/icons-material/DarkMode';
 import SettingsBrightnessIcon from '@mui/icons-material/SettingsBrightness';
 
-import AppLogo from './assets/images/logo-light-ethayer-no-mark.svg'; // --- IGNORE ---
+import YofolioLogo from './assets/images/logo-light-ethayer-no-mark.svg';
+
+export interface AppProps {
+  appLogo?: string;
+  appTitle?: string;
+}
 
 import {
   lightThemeWithComponents,
@@ -31,7 +36,10 @@ import {
 } from './theme/theme.ts';
 type ThemeMode = 'light' | 'dark' | 'system';
 
-function App() {
+export const App = ({
+  appLogo = YofolioLogo,
+  appTitle = 'Yofolio',
+}: AppProps) => {
   const [themeMode, setThemeMode] = useState<ThemeMode>(() => {
     // Initialize from localStorage or default to 'system'
     const saved = localStorage.getItem('themeMode');
@@ -110,7 +118,10 @@ function App() {
               gap={1}
             >
               {/* Mode Switcher */}
-              <Stack flexDirection='row' alignItems='center'>
+              <Stack
+                flexDirection='row'
+                alignItems='center'
+              >
                 <IconButton
                   color='inherit'
                   onClick={handleMenuOpen}
@@ -161,20 +172,25 @@ function App() {
               <Stack className='app-logo'>
                 <Link
                   href='/'
+                  color='inherit'
                   sx={{
                     display: 'flex',
                   }}
                 >
-                  <img
-                    loading='lazy'
-                    src={AppLogo}
-                    alt='logo'
-                    height='15.2'
-                    width='176'
-                    style={{
-                      filter: themeMode === 'light' ? 'invert(1)' : 'none',
-                    }}
-                  />
+                  {appLogo ? (
+                    <img
+                      loading='lazy'
+                      src={appLogo}
+                      alt='logo'
+                      height='15.2'
+                      width='176'
+                      style={{
+                        filter: themeMode === 'light' ? 'invert(1)' : 'none',
+                      }}
+                    />
+                  ) : (
+                    appTitle
+                  )}
                 </Link>
               </Stack>
             </Stack>
@@ -290,6 +306,6 @@ function App() {
       </Stack>
     </ThemeProvider>
   );
-}
+};
 
 export default App;

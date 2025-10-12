@@ -1,4 +1,8 @@
 export const colors = {
+  common: {
+    black: '#0c0c0c',
+    white: '#fcfcfc',
+  },
   primary: {
     50: '#ffe8f6',
     100: '#ffbfe7',
@@ -22,6 +26,7 @@ export const colors = {
     700: '#838c96',
     800: '#4e555c',
     900: '#3f454b',
+    1000: '#2c3035',
   },
   accent: {
     50: '#eef4ff',
