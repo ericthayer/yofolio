@@ -21,7 +21,7 @@ import Typography from '@mui/material/Typography';
 
 import LightModeIcon from '@mui/icons-material/LightMode';
 import DarkModeIcon from '@mui/icons-material/DarkMode';
-import SettingsBrightnessIcon from '@mui/icons-material/SettingsBrightness';
+import SettingsBrightnessIcon from '@mui/icons-material/Compare';
 
 import YofolioLogo from './assets/images/logo-light-ethayer-no-mark.svg';
 
@@ -179,24 +179,24 @@ export const App = ({
               >
                 <ListItem disablePadding>
                   <ListItemButton
-                    component='a'
                     href='#about'
+                    component='a'                    
                   >
                     <ListItemText primary='About' />
                   </ListItemButton>
                 </ListItem>
                 <ListItem disablePadding>
                   <ListItemButton
-                    component='a'
                     href='#experience'
+                    component='a'
                   >
                     <ListItemText primary='Experience' />
                   </ListItemButton>
                 </ListItem>
                 <ListItem disablePadding>
                   <ListItemButton
-                    component='a'
                     href='#contact'
+                    component='a'
                   >
                     <ListItemText primary='Contact' />
                   </ListItemButton>
