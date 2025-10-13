@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 
-import { ThemeProvider } from '@mui/material/styles';
+import { ThemeProvider, useTheme } from '@mui/material/styles';
 
 import Button from '@mui/material/Button';
 import Box from '@mui/material/Box';
@@ -8,10 +8,6 @@ import CssBaseline from '@mui/material/CssBaseline';
 import Container from '@mui/material/Container';
 import AppBar from '@mui/material/AppBar';
 import Link from '@mui/material/Link';
-import List from '@mui/material/List';
-import ListItem from '@mui/material/ListItem';
-import ListItemButton from '@mui/material/ListItemButton';
-import ListItemText from '@mui/material/ListItemText';
 import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
 import IconButton from '@mui/material/IconButton';
@@ -19,16 +15,15 @@ import Stack from '@mui/material/Stack';
 import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
 
+import { NavList } from './components/List';
+import { socialNavLinks } from './data/socialLinks';
+import { mainNavLinks, footerNavLinks } from './data/navigationLinks';
+
 import LightModeIcon from '@mui/icons-material/LightMode';
 import DarkModeIcon from '@mui/icons-material/DarkMode';
 import SettingsBrightnessIcon from '@mui/icons-material/Compare';
 
 import YofolioLogo from './assets/images/logo-light-ethayer-no-mark.svg';
-
-import LinkedInIcon from './assets/icons/icon-linkedin.svg?react';
-import GitHubIcon from './assets/icons/icon-github.svg?react';
-import CodePenIcon from './assets/icons/icon-codepen.svg?react';
-import NotionIcon from './assets/icons/icon-notion.svg?react';
 
 import {
   lightThemeWithComponents,
@@ -55,6 +50,8 @@ export const App = ({
   appLogo = YofolioLogo,
   appTitle = 'Yofolio',
 }: AppProps) => {
+  const theme = useTheme();
+
   const [themeMode, setThemeMode] = useState<ThemeMode>(() => {
     // Initialize from localStorage or default to 'system'
     const saved = localStorage.getItem('themeMode');
@@ -154,7 +151,7 @@ export const App = ({
                       style={{
                         filter:
                           getActualTheme() === lightThemeWithComponents
-                            ? 'invert(1) brightness(1.5)'
+                            ? 'invert(0.8)'
                             : 'none',
                       }}
                     />
@@ -173,52 +170,22 @@ export const App = ({
           >
             {/* Main Navigation */}
             <nav aria-label='main navigation'>
-              {/* TODO: Implement smooth scrolling & create map of navigationItems[NavItem] */}
-              <List
-                sx={{ display: 'flex', flexDirection: 'row', gap: 1, p: 0 }}
-              >
-                <ListItem disablePadding>
-                  <ListItemButton
-                    href='#about'
-                    component='a'                    
-                  >
-                    <ListItemText primary='About' />
-                  </ListItemButton>
-                </ListItem>
-                <ListItem disablePadding>
-                  <ListItemButton
-                    href='#experience'
-                    component='a'
-                  >
-                    <ListItemText primary='Experience' />
-                  </ListItemButton>
-                </ListItem>
-                <ListItem disablePadding>
-                  <ListItemButton
-                    href='#contact'
-                    component='a'
-                  >
-                    <ListItemText primary='Contact' />
-                  </ListItemButton>
-                </ListItem>
-                <ListItem disablePadding>
-                  <ListItemButton onClick={handleMenuOpen}>
-                    <ListItemText primary='Theme' />
-                  </ListItemButton>
-                </ListItem>
-              </List>
+              <NavList
+                items={mainNavLinks}
+                target='_self'
+              />
             </nav>
 
             {/* Mode Switcher */}
             <Stack
               flexDirection='row'
               alignItems='center'
-              display='none'
             >
               <IconButton
                 color='inherit'
                 onClick={handleMenuOpen}
                 aria-label='theme options'
+                size='small'
                 sx={{ alignSelf: 'center' }}
               >
                 {themeSwitcherIcons(themeMode)}
@@ -334,59 +301,57 @@ export const App = ({
                   View Resume
                 </Button>
               </Stack>
-              {/* Social Links */}
-              {/* TODO: Create <SocialLinks /> component & move data into socialLinks[] */}
-              <Stack
-                className='billboard-social'
-                direction='row'
-                gap={2}
-              >
-                <IconButton
-                  color='inherit'
-                  size='large'
-                  edge='start'
-                  href='https://www.linkedin.com/in/ethayerdesign/'
-                  target='_blank'
-                  rel='noopener noreferrer'
-                  title='LinkedIn'
-                >
-                  <LinkedInIcon />
-                </IconButton>
-                <IconButton
-                  color='inherit'
-                  size='large'
-                  href='https://github.com/ericthayer/'
-                  target='_blank'
-                  rel='noopener noreferrer'
-                  title='GitHub'
-                >
-                  <GitHubIcon />
-                </IconButton>
-                <IconButton
-                  color='inherit'
-                  size='large'
-                  href='https://codepen.io/ericthayer/'
-                  target='_blank'
-                  rel='noopener noreferrer'
-                  title='CodePen'
-                >
-                  <CodePenIcon />
-                </IconButton>
-                <IconButton
-                  color='inherit'
-                  size='large'
-                  href='https://ethayer.notion.site/'
-                  target='_blank'
-                  rel='noopener noreferrer'
-                  title='Professional Timeline'
-                >
-                  <NotionIcon />
-                </IconButton>
-              </Stack>
             </Stack>
           </Container>
         </Stack>
       </Stack>
+      {/* App Footer */}
+      <AppBar
+        component='footer'
+        position='static'
+        elevation={0}
+      >
+        <Toolbar
+          sx={{
+            justifyContent: 'space-between',
+            flexWrap: 'wrap',
+            fontSize: theme.typography.body2.fontSize,
+            pr: { xs: 1.5 },
+            gap: 1,
+          }}
+        >
+          <Typography
+            variant='body2'
+            color='inherit'
+          >
+            © {new Date().getFullYear()} {appTitle}.
+          </Typography>
+
+          {/* Footer Navigation */}
+          <Box
+            component='nav'
+            aria-label='footer navigation'
+            sx={{ mr: { xs: 0, sm: 'auto' } }}
+          >
+            <NavList
+              items={footerNavLinks}
+              sx={{
+                '.MuiListItemButton-root': {
+                  p: 0,
+                  textDecoration: 'underline',
+                  textDecorationSkipInk: 'auto',
+                },
+              }}
+            />
+          </Box>
+
+          {/* Social Links */}
+          <NavList
+            items={socialNavLinks}
+            variant='icon'
+          />
+        </Toolbar>
+      </AppBar>
     </ThemeProvider>
   );
 };
