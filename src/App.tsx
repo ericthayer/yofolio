@@ -25,16 +25,31 @@ import SettingsBrightnessIcon from '@mui/icons-material/SettingsBrightness';
 
 import YofolioLogo from './assets/images/logo-light-ethayer-no-mark.svg';
 
-export interface AppProps {
-  appLogo?: string;
-  appTitle?: string;
-}
+import LinkedInIcon from './assets/icons/icon-linkedin.svg?react';
+import GitHubIcon from './assets/icons/icon-github.svg?react';
+import CodePenIcon from './assets/icons/icon-codepen.svg?react';
+import NotionIcon from './assets/icons/icon-notion.svg?react';
 
 import {
   lightThemeWithComponents,
   darkThemeWithComponents,
 } from './theme/theme.ts';
 type ThemeMode = 'light' | 'dark' | 'system';
+
+export interface AppProps {
+  appLogo?: string;
+  appTitle?: string;
+}
+
+const themeSwitcherIcons = (themeMode: ThemeMode) => {
+  return (
+    <>
+      {themeMode === 'light' && <LightModeIcon />}
+      {themeMode === 'dark' && <DarkModeIcon />}
+      {themeMode === 'system' && <SettingsBrightnessIcon />}
+    </>
+  );
+};
 
 export const App = ({
   appLogo = YofolioLogo,
@@ -61,7 +76,7 @@ export const App = ({
 
     mediaQuery.addEventListener('change', handleChange);
     return () => mediaQuery.removeEventListener('change', handleChange);
-  }, []);
+  }, [systemPrefersDark]);
 
   // Persist theme mode to localStorage whenever it changes
   useEffect(() => {
@@ -97,6 +112,9 @@ export const App = ({
   return (
     <ThemeProvider theme={getActualTheme()}>
       <CssBaseline />
+      {/* AppBar - Navigation */}
+      {/* TODO: Create mobile navigation UX */}
+      {/* TODO: Create <MainNavigation /> component w/ top & sidebar drawer variants */}
       <AppBar
         className='app-navbar'
         position='static'
@@ -107,7 +125,7 @@ export const App = ({
           sx={{
             justifyContent: 'space-between',
             flexWrap: 'wrap',
-            px: { xs: 1.5 },
+            pr: { xs: 1.5 },
           }}
         >
           {/* AppBar Left */}
@@ -117,75 +135,27 @@ export const App = ({
               alignItems='center'
               gap={1}
             >
-              {/* Mode Switcher */}
-              <Stack
-                flexDirection='row'
-                alignItems='center'
-              >
-                <IconButton
-                  color='inherit'
-                  onClick={handleMenuOpen}
-                  aria-label='theme options'
-                  sx={{ alignSelf: 'center' }}
-                >
-                  {themeMode === 'light' && <LightModeIcon />}
-                  {themeMode === 'dark' && <DarkModeIcon />}
-                  {themeMode === 'system' && <SettingsBrightnessIcon />}
-                </IconButton>
-                <Menu
-                  anchorEl={anchorEl}
-                  open={Boolean(anchorEl)}
-                  onClose={handleMenuClose}
-                  anchorOrigin={{
-                    vertical: 'bottom',
-                    horizontal: 'right',
-                  }}
-                  transformOrigin={{
-                    vertical: 'top',
-                    horizontal: 'right',
-                  }}
-                >
-                  <MenuItem
-                    onClick={() => handleThemeChange('light')}
-                    selected={themeMode === 'light'}
-                  >
-                    <LightModeIcon sx={{ mr: 1 }} />
-                    Light
-                  </MenuItem>
-                  <MenuItem
-                    onClick={() => handleThemeChange('dark')}
-                    selected={themeMode === 'dark'}
-                  >
-                    <DarkModeIcon sx={{ mr: 1 }} />
-                    Dark
-                  </MenuItem>
-                  <MenuItem
-                    onClick={() => handleThemeChange('system')}
-                    selected={themeMode === 'system'}
-                  >
-                    <SettingsBrightnessIcon sx={{ mr: 1 }} />
-                    System
-                  </MenuItem>
-                </Menu>
-              </Stack>
               {/* Logo */}
               <Stack className='app-logo'>
                 <Link
                   href='/'
                   color='inherit'
+                  title='Home'
                   sx={{
                     display: 'flex',
                   }}
                 >
                   {appLogo ? (
                     <img
-                      loading='lazy'
                       src={appLogo}
-                      alt='logo'
+                      alt='Yofolio Logo'
                       height='15.2'
                       width='176'
                       style={{
-                        filter: themeMode === 'light' ? 'invert(1)' : 'none',
+                        filter:
+                          getActualTheme() === lightThemeWithComponents
+                            ? 'invert(1) brightness(1.5)'
+                            : 'none',
                       }}
                     />
                   ) : (
@@ -199,34 +169,96 @@ export const App = ({
           <Stack
             className='appbar-right'
             flexDirection='row'
+            gap={1}
           >
             {/* Main Navigation */}
             <nav aria-label='main navigation'>
+              {/* TODO: Implement smooth scrolling & create map of navigationItems[NavItem] */}
               <List
                 sx={{ display: 'flex', flexDirection: 'row', gap: 1, p: 0 }}
               >
                 <ListItem disablePadding>
-                  <ListItemButton>
+                  <ListItemButton
+                    component='a'
+                    href='#about'
+                  >
                     <ListItemText primary='About' />
                   </ListItemButton>
                 </ListItem>
                 <ListItem disablePadding>
-                  <ListItemButton>
+                  <ListItemButton
+                    component='a'
+                    href='#experience'
+                  >
                     <ListItemText primary='Experience' />
                   </ListItemButton>
                 </ListItem>
                 <ListItem disablePadding>
-                  <ListItemButton>
-                    <ListItemText primary='Resume' />
+                  <ListItemButton
+                    component='a'
+                    href='#contact'
+                  >
+                    <ListItemText primary='Contact' />
                   </ListItemButton>
                 </ListItem>
                 <ListItem disablePadding>
-                  <ListItemButton>
-                    <ListItemText primary='Contact' />
+                  <ListItemButton onClick={handleMenuOpen}>
+                    <ListItemText primary='Theme' />
                   </ListItemButton>
                 </ListItem>
               </List>
             </nav>
+
+            {/* Mode Switcher */}
+            <Stack
+              flexDirection='row'
+              alignItems='center'
+              display='none'
+            >
+              <IconButton
+                color='inherit'
+                onClick={handleMenuOpen}
+                aria-label='theme options'
+                sx={{ alignSelf: 'center' }}
+              >
+                {themeSwitcherIcons(themeMode)}
+              </IconButton>
+              <Menu
+                anchorEl={anchorEl}
+                open={Boolean(anchorEl)}
+                onClose={handleMenuClose}
+                anchorOrigin={{
+                  vertical: 'bottom',
+                  horizontal: 'right',
+                }}
+                transformOrigin={{
+                  vertical: 'top',
+                  horizontal: 'right',
+                }}
+              >
+                <MenuItem
+                  onClick={() => handleThemeChange('light')}
+                  selected={themeMode === 'light'}
+                >
+                  <LightModeIcon sx={{ mr: 1 }} />
+                  Light
+                </MenuItem>
+                <MenuItem
+                  onClick={() => handleThemeChange('dark')}
+                  selected={themeMode === 'dark'}
+                >
+                  <DarkModeIcon sx={{ mr: 1 }} />
+                  Dark
+                </MenuItem>
+                <MenuItem
+                  onClick={() => handleThemeChange('system')}
+                  selected={themeMode === 'system'}
+                >
+                  <SettingsBrightnessIcon sx={{ mr: 1 }} />
+                  System
+                </MenuItem>
+              </Menu>
+            </Stack>
           </Stack>
         </Toolbar>
       </AppBar>
@@ -236,6 +268,7 @@ export const App = ({
         gap={0}
       >
         {/* Hero Section */}
+        {/* TODO: Create <HeroSection /> component */}
         <Stack
           className='billboard'
           gap={0}
@@ -251,8 +284,9 @@ export const App = ({
             }}
           >
             <Stack gap={4}>
-              {/* Hero Text */}
+              {/* Hero Text: <slot/> */}
               <Stack gap={1}>
+                {/* Hero Text */}
                 <Typography
                   className='billboard-headline'
                   variant='h1'
@@ -279,7 +313,7 @@ export const App = ({
                   succeed.
                 </Typography>
               </Stack>
-              {/* Actions */}
+              {/* Actions: <slot/> */}
               <Stack
                 className='billboard-actions'
                 gap={2}
@@ -299,6 +333,55 @@ export const App = ({
                 >
                   View Resume
                 </Button>
+              </Stack>
+              {/* Social Links */}
+              {/* TODO: Create <SocialLinks /> component & move data into socialLinks[] */}
+              <Stack
+                className='billboard-social'
+                direction='row'
+                gap={2}
+              >
+                <IconButton
+                  color='inherit'
+                  size='large'
+                  edge='start'
+                  href='https://www.linkedin.com/in/ethayerdesign/'
+                  target='_blank'
+                  rel='noopener noreferrer'
+                  title='LinkedIn'
+                >
+                  <LinkedInIcon />
+                </IconButton>
+                <IconButton
+                  color='inherit'
+                  size='large'
+                  href='https://github.com/ericthayer/'
+                  target='_blank'
+                  rel='noopener noreferrer'
+                  title='GitHub'
+                >
+                  <GitHubIcon />
+                </IconButton>
+                <IconButton
+                  color='inherit'
+                  size='large'
+                  href='https://codepen.io/ericthayer/'
+                  target='_blank'
+                  rel='noopener noreferrer'
+                  title='CodePen'
+                >
+                  <CodePenIcon />
+                </IconButton>
+                <IconButton
+                  color='inherit'
+                  size='large'
+                  href='https://ethayer.notion.site/'
+                  target='_blank'
+                  rel='noopener noreferrer'
+                  title='Professional Timeline'
+                >
+                  <NotionIcon />
+                </IconButton>
               </Stack>
             </Stack>
           </Container>

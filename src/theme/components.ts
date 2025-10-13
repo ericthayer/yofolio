@@ -137,6 +137,9 @@ export const brandedComponents: ThemeOptions['components'] = {
         height: 'auto',
         fontWeight: brandedTypography.fontWeightBold,
       },
+      '.billboard-headline.billboard-headline': {
+        letterSpacing: '-0.025em',
+      },
       '.billboard-description.billboard-description': {
         fontSize: 'clamp(1rem, calc(0.875rem + 1.5vw), 1.25rem)',
         fontWeight: brandedTypography.fontWeightRegular,
