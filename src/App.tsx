@@ -291,7 +291,7 @@ export const App = ({
                   className='billboard-headline'
                   variant='h1'
                 >
-                  UX Engineer <small>&amp;</small>{' '}
+                  UX Engineer <Box component='small'>&amp;</Box>{' '}
                   <Box
                     component='br'
                     sx={{ display: { xs: 'block', sm: 'none' } }}
