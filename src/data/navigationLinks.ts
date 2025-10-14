@@ -29,15 +29,10 @@ export const mainNavLinks: NavListItem[] = [
 
 export const footerNavLinks: NavListItem[] = [
   {
-    id: 'patterns',
-    href: '#patterns',
-    title: 'Patterns',
+    id: 'styleguide',
+    href: '#styleguide',
+    title: 'Styleguide',
     variant: 'button',
-  },
-  {
-    id: 'scores',
-    href: '#scores',
-    title: 'Scores',
-    variant: 'button',
+    onClick: () => { window.alert('Styleguide is under construction!') }
   },
 ];

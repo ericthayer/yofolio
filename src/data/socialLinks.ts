@@ -12,6 +12,7 @@ export const socialNavLinks: NavListItem[] = [
     title: 'LinkedIn',
     icon: LinkedInIcon,
     variant: 'icon',
+    edge: 'start',
   },
   {
     id: 'github',
@@ -33,5 +34,6 @@ export const socialNavLinks: NavListItem[] = [
     title: 'Professional Timeline',
     icon: NotionIcon,
     variant: 'icon',
+    edge: 'end',
   },
 ];

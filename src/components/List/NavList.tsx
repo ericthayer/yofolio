@@ -15,8 +15,10 @@ export interface NavListItem {
   href: string;
   icon?: React.ComponentType;
   variant?: 'button' | 'icon';
+  edge?: 'start' | 'end' | false;
   listItemButtonProps?: Partial<ListItemButtonProps>;
   iconButtonProps?: Partial<IconButtonProps>;
+  onClick?: () => void;
 }
 
 export interface NavListProps extends Omit<ListProps, 'children'> {
@@ -58,6 +60,7 @@ export const NavList: React.FC<NavListProps> = ({
       disablePadding={disablePadding}
       sx={{
         display: 'flex',
+        flexWrap: 'wrap',
         flexDirection: direction,
         gap: 1,
         ...sx,
@@ -72,15 +75,18 @@ export const NavList: React.FC<NavListProps> = ({
           <ListItem
             key={item.id}
             disablePadding
+            sx={{ width: 'auto' }}
           >
             {itemVariant === 'icon' && IconComponent ? (
               <IconButton
                 component='a'
+                edge={item.edge}
                 color={color}
                 href={item.href}
                 target={target}
                 rel={rel}
                 title={item.title}
+                onClick={item.onClick}
                 {...item.iconButtonProps}
               >
                 <IconComponent />
@@ -92,6 +98,8 @@ export const NavList: React.FC<NavListProps> = ({
                 href={item.href}
                 target={target}
                 rel={rel}
+                edge={item.edge}
+                onClick={item.onClick}
                 {...item.listItemButtonProps}
               >
                 <ListItemText
