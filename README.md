@@ -60,4 +60,4 @@ Built with Bootstrap and Vite, this open-source solution offers a perfect balanc
 
 - **Multi-page Support:** create & deploy multiple templates
 - **Vue/React Support:** optional SPA support
-- **Visual Testing:** Chromatic integration
+<!-- - **Visual Testing:** Chromatic integration -->
