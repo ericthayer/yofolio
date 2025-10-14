@@ -109,7 +109,6 @@ export const App = ({
     <ThemeProvider theme={getActualTheme()}>
       <CssBaseline />
       {/* AppBar - Navigation */}
-      {/* TODO: Create mobile navigation UX */}
       {/* TODO: Create <MainNavigation /> component w/ top & sidebar drawer variants */}
       <AppBar
         className='app-navbar'
