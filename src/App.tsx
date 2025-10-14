@@ -2,10 +2,8 @@ import { useState, useEffect } from 'react';
 
 import { ThemeProvider, useTheme } from '@mui/material/styles';
 
-import Button from '@mui/material/Button';
 import Box from '@mui/material/Box';
 import CssBaseline from '@mui/material/CssBaseline';
-import Container from '@mui/material/Container';
 import AppBar from '@mui/material/AppBar';
 import Link from '@mui/material/Link';
 import Menu from '@mui/material/Menu';
@@ -15,13 +13,14 @@ import Stack from '@mui/material/Stack';
 import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
 
+import { DefaultHero } from './components/Hero';
 import { NavList } from './components/List';
 import { socialNavLinks } from './data/socialLinks';
 import { mainNavLinks, footerNavLinks } from './data/navigationLinks';
 
 import LightModeIcon from '@mui/icons-material/LightMode';
 import DarkModeIcon from '@mui/icons-material/DarkMode';
-import SettingsBrightnessIcon from '@mui/icons-material/Compare';
+import SettingsBrightnessIcon from '@mui/icons-material/Contrast';
 
 import YofolioLogo from './assets/images/logo-light-ethayer-no-mark.svg';
 
@@ -114,14 +113,19 @@ export const App = ({
       {/* TODO: Create <MainNavigation /> component w/ top & sidebar drawer variants */}
       <AppBar
         className='app-navbar'
-        position='static'
+        position='sticky'
         elevation={0}
+        sx={{
+          containerType: 'inline-size',
+        }}
       >
         <Toolbar
           className='app-toolbar'
           sx={{
-            justifyContent: 'space-between',
+            flexDirection: { xs: 'column', '@md': 'row' },
+            justifyContent: { xs: 'center', '@md': 'space-between' },
             flexWrap: 'wrap',
+            pt: { xs: 1.75, '@md': 0 },
             pr: { xs: 1.5 },
           }}
         >
@@ -166,15 +170,19 @@ export const App = ({
           <Stack
             className='appbar-right'
             flexDirection='row'
+            flexWrap='wrap'
             gap={1}
           >
             {/* Main Navigation */}
-            <nav aria-label='main navigation'>
+            <Box
+              component='nav'
+              aria-label='main navigation'
+            >
               <NavList
                 items={mainNavLinks}
                 target='_self'
               />
-            </nav>
+            </Box>
 
             {/* Mode Switcher */}
             <Stack
@@ -186,7 +194,10 @@ export const App = ({
                 onClick={handleMenuOpen}
                 aria-label='theme options'
                 size='small'
-                sx={{ alignSelf: 'center' }}
+                sx={{
+                  alignSelf: 'center',
+                  '.MuiSvgIcon-root': { fontSize: '1.25rem' },
+                }}
               >
                 {themeSwitcherIcons(themeMode)}
               </IconButton>
@@ -207,21 +218,30 @@ export const App = ({
                   onClick={() => handleThemeChange('light')}
                   selected={themeMode === 'light'}
                 >
-                  <LightModeIcon sx={{ mr: 1 }} />
+                  <LightModeIcon
+                    fontSize='small'
+                    sx={{ mr: 1 }}
+                  />
                   Light
                 </MenuItem>
                 <MenuItem
                   onClick={() => handleThemeChange('dark')}
                   selected={themeMode === 'dark'}
                 >
-                  <DarkModeIcon sx={{ mr: 1 }} />
+                  <DarkModeIcon
+                    fontSize='small'
+                    sx={{ mr: 1 }}
+                  />
                   Dark
                 </MenuItem>
                 <MenuItem
                   onClick={() => handleThemeChange('system')}
                   selected={themeMode === 'system'}
                 >
-                  <SettingsBrightnessIcon sx={{ mr: 1 }} />
+                  <SettingsBrightnessIcon
+                    fontSize='small'
+                    sx={{ mr: 1 }}
+                  />
                   System
                 </MenuItem>
               </Menu>
@@ -236,114 +256,71 @@ export const App = ({
       >
         {/* Hero Section */}
         {/* TODO: Create <HeroSection /> component */}
-        <Stack
-          className='billboard'
-          gap={0}
-          sx={{ justifyContent: 'center', flex: 1 }}
-        >
-          <Container
-            className='billboard-container'
-            maxWidth={false}
-            sx={{
-              containerType: 'inline-size',
-              py: 'clamp(4rem, 4vw, 7rem)',
-              px: { xs: 4, md: 6 },
-            }}
-          >
-            <Stack gap={4}>
-              {/* Hero Text: <slot/> */}
-              <Stack gap={1}>
-                {/* Hero Text */}
-                <Typography
-                  className='billboard-headline'
-                  variant='h1'
-                >
-                  UX Engineer <Box component='small'>&amp;</Box>{' '}
-                  <Box
-                    component='br'
-                    sx={{ display: { xs: 'block', sm: 'none' } }}
-                  />
-                  Systems Lead
-                </Typography>
-                <Typography
-                  className='billboard-description'
-                  variant='h5'
-                  component='p'
-                >
-                  I'm a skilled&mdash;Creative Strategist, Product Designer, and
-                  Front-end Developer.{' '}
-                  <Box
-                    component='br'
-                    sx={{ display: { xs: 'none', md: 'block' } }}
-                  />
-                  Please let me know how I can help your team or project
-                  succeed.
-                </Typography>
-              </Stack>
-              {/* Actions: <slot/> */}
-              <Stack
-                className='billboard-actions'
-                gap={2}
-                sx={{ flexDirection: { xs: 'column', '@sm': 'row' } }}
-              >
-                <Button
-                  color='primary'
-                  variant='contained'
-                  size='large'
-                >
-                  Work Experience
-                </Button>
-                <Button
-                  color='secondary'
-                  variant='contained'
-                  size='large'
-                >
-                  View Resume
-                </Button>
-              </Stack>
-            </Stack>
-          </Container>
-        </Stack>
+        <DefaultHero
+          id='heroSection'
+          variant='fullscreen'
+        />
+        <DefaultHero
+          id='about'
+          variant='fullscreen'
+        />
+        <DefaultHero
+          id='contact'
+          variant='fullscreen'
+        />
       </Stack>
       {/* App Footer */}
       <AppBar
         component='footer'
-        position='static'
+        position='sticky'
         elevation={0}
+        sx={{ bottom: 0 }}
       >
         <Toolbar
+          variant='dense'
           sx={{
+            flexDirection: { xs: 'column', sm: 'row' },
             justifyContent: 'space-between',
             flexWrap: 'wrap',
             fontSize: theme.typography.body2.fontSize,
-            pr: { xs: 1.5 },
-            gap: 1,
+            py: { xs: 1.75, sm: 0.25 },
+            px: { sm: 2.25 },
+            gap: { xs: 0, sm: 1},
           }}
         >
-          <Typography
-            variant='body2'
-            color='inherit'
-          >
-            © {new Date().getFullYear()} {appTitle}.
-          </Typography>
-
-          {/* Footer Navigation */}
-          <Box
-            component='nav'
-            aria-label='footer navigation'
+          {/* Copyright + Footer Nav */}
+          <Stack
+            direction='row'
+            alignItems='center'
+            gap={1}
             sx={{ mr: { xs: 0, sm: 'auto' } }}
           >
-            <NavList
-              items={footerNavLinks}
-              sx={{
-                '.MuiListItemButton-root': {
-                  p: 0,
-                  textDecoration: 'underline',
-                  textDecorationSkipInk: 'auto',
-                },
-              }}
-            />
-          </Box>
+            {/* Copyright */}
+            <Typography
+              variant='body2'
+              color='inherit'
+            >
+              © {new Date().getFullYear()} {appTitle}.
+            </Typography>
+
+            {/* Footer Navigation */}
+            <Box
+              component='nav'
+              aria-label='footer navigation'
+            >
+              <NavList
+                items={footerNavLinks}
+                sx={{
+                  '.MuiListItemButton-root': {
+                    py: 0.125,
+                    px: 0.75,
+                    textDecoration: 'underline',
+                    textDecorationSkipInk: 'auto',
+                  },
+                }}
+              />
+            </Box>
+          </Stack>
 
           {/* Social Links */}
           <NavList
