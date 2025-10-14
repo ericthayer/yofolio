@@ -2,6 +2,19 @@ import type { ThemeOptions } from '@mui/material/styles';
 import { createTheme } from '@mui/material/styles';
 import colors from './colors';
 
+// Add custom breakpoint keys to the theme
+declare module '@mui/material/styles' {
+  interface BreakpointOverrides {
+    xs: true;
+    sm: true;
+    md: true;
+    lg: true;
+    xl: true;
+    xxl: true;
+    wide: true;
+  }
+}
+
 export const lightThemePalette = createTheme({
   palette: {
     mode: 'light',
@@ -46,6 +59,20 @@ export const darkThemePalette = createTheme({
     text: {
       primary: colors.secondary[50],
       secondary: colors.secondary[300],
+    },
+  },
+});
+
+export const breakpointsOverrides = createTheme({
+  breakpoints: {
+    values: {
+      xs: 0,
+      sm: 576,
+      md: 768,
+      lg: 1200,
+      xl: 1536,
+      xxl: 1920,
+      wide: 2560,
     },
   },
 });
@@ -118,6 +145,8 @@ export const brandedComponents: ThemeOptions['components'] = {
         textRendering: 'optimizeLegibility',
         WebkitFontSmoothing: 'antialiased',
         MozOsxFontSmoothing: 'grayscale',
+        // Smooth scrolling for anchor links
+        scrollBehavior: 'smooth',
       },
       body: {
         display: 'flex',
@@ -138,11 +167,24 @@ export const brandedComponents: ThemeOptions['components'] = {
         fontWeight: brandedTypography.fontWeightBold,
       },
       '.billboard-headline.billboard-headline': {
-        letterSpacing: '-0.025em',
+        lineHeight: 1,
+        letterSpacing: '-0.03em',
       },
       '.billboard-description.billboard-description': {
         fontSize: 'clamp(1rem, calc(0.875rem + 1.5vw), 1.25rem)',
         fontWeight: brandedTypography.fontWeightRegular,
+      },
+      // Enhanced smooth scrolling with reduced motion support
+      '@media (prefers-reduced-motion: no-preference)': {
+        ':root': {
+          scrollBehavior: 'smooth',
+        },
+      },
+      // Respect user's motion preferences
+      '@media (prefers-reduced-motion: reduce)': {
+        ':root': {
+          scrollBehavior: 'auto',
+        },
       },
     },
   },
@@ -173,4 +215,8 @@ export const brandedComponents: ThemeOptions['components'] = {
       },
     },
   },
+};
+
+export const customBreakpoints: ThemeOptions['breakpoints'] = {
+  ...breakpointsOverrides.breakpoints
 };

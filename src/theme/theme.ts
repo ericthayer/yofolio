@@ -1,9 +1,17 @@
 import { createTheme } from '@mui/material/styles';
 import type { ThemeOptions } from '@mui/material/styles';
-// import colors from './colors';
-import { lightPalette, darkPalette, brandedComponents, brandedTypography } from './components';
+import {
+  lightPalette,
+  darkPalette,
+  brandedComponents,
+  brandedTypography,
+  customBreakpoints,
+} from './components';
 
 export const baseTheme: ThemeOptions = {
+  breakpoints: {
+    ...customBreakpoints,
+  },
   typography: {
     ...brandedTypography,
   },
@@ -41,17 +49,11 @@ export const lightThemeWithComponents = createTheme({
   components: {
     ...brandedComponents,
   },
-  typography: {
-    ...brandedTypography,
-  },
 });
 
 export const darkThemeWithComponents = createTheme({
   ...darkTheme,
   components: {
     ...brandedComponents,
-  },
-  typography: {
-    ...brandedTypography,
   },
 });
