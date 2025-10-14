@@ -17,6 +17,7 @@
     "react-dom": "^19.1.1"
   },
   "devDependencies": {
+    "@fontsource-variable/dm-sans": "^5.2.8",
     "@eslint/js": "^9.36.0",
     "@types/node": "^24.6.0",
     "@types/react": "^19.1.16",
