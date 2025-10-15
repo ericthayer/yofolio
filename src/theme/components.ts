@@ -102,28 +102,28 @@ export const brandedTypography: ThemeOptions['typography'] = {
   },
   h2: {
     fontSize: '2.5rem',
-    fontWeight: 600,
+    fontWeight: 700,
     lineHeight: 1.3,
     letterSpacing: '-0.01em',
   },
   h3: {
     fontSize: '2rem',
-    fontWeight: 600,
+    fontWeight: 700,
     lineHeight: 1.4,
   },
   h4: {
     fontSize: '1.5rem',
-    fontWeight: 500,
+    fontWeight: 650,
     lineHeight: 1.4,
   },
   h5: {
     fontSize: '1.25rem',
-    fontWeight: 500,
+    fontWeight: 600,
     lineHeight: 1.5,
   },
   h6: {
     fontSize: '1rem',
-    fontWeight: 500,
+    fontWeight: 600,
     lineHeight: 1.5,
   },
   body1: {
