@@ -84,26 +84,26 @@ const professionalSkills = [
   },
 ];
 
-const developmentSkills = [
-  {
-    name: 'JavaScript',
-    description:
-      'Experienced in building dynamic web applications using JavaScript, including ES6+ features and frameworks like React and Node.js.',
-    actionLabel: 'Learn More',
-  },
-  {
-    name: 'TypeScript',
-    description:
-      'Proficient in TypeScript for developing robust and maintainable codebases, with experience in type safety and advanced typing features.',
-    actionLabel: 'Learn More',
-  },
-  {
-    name: 'React',
-    description:
-      'Skilled in building responsive and interactive user interfaces with React, utilizing hooks, context, and state management libraries.',
-    actionLabel: 'Learn More',
-  },
-];
+// const developmentSkills = [
+//   {
+//     name: 'JavaScript',
+//     description:
+//       'Experienced in building dynamic web applications using JavaScript, including ES6+ features and frameworks like React and Node.js.',
+//     actionLabel: 'Learn More',
+//   },
+//   {
+//     name: 'TypeScript',
+//     description:
+//       'Proficient in TypeScript for developing robust and maintainable codebases, with experience in type safety and advanced typing features.',
+//     actionLabel: 'Learn More',
+//   },
+//   {
+//     name: 'React',
+//     description:
+//       'Skilled in building responsive and interactive user interfaces with React, utilizing hooks, context, and state management libraries.',
+//     actionLabel: 'Learn More',
+//   },
+// ];
 
 export const App = ({
   appLogo = YofolioLogo,
