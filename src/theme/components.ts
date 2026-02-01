@@ -6,6 +6,7 @@ import colors from './colors';
 declare module '@mui/material/styles' {
   interface BreakpointOverrides {
     xs: true;
+    tiny: true;
     sm: true;
     md: true;
     lg: true;
@@ -67,6 +68,7 @@ export const breakpointsOverrides = createTheme({
   breakpoints: {
     values: {
       xs: 0,
+      tiny: 320,
       sm: 576,
       md: 768,
       lg: 1200,
