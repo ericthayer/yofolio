@@ -60,7 +60,7 @@ const professionalSkills = [
     description:
       'Experienced in creating user-centered designs through research, prototyping, and usability testing.',
     actionLabel: 'Learn More',
-    onClick: () => {
+    onPrimaryClick: () => {
       alert('Clicked UX Design!');
     },
   },
@@ -69,7 +69,7 @@ const professionalSkills = [
     description:
       'Proficient in building responsive and interactive user interfaces using HTML, CSS, and modern JavaScript frameworks.',
     actionLabel: 'Learn More',
-    onClick: () => {
+    onPrimaryClick: () => {
       alert('Clicked Front-end Development!');
     },
   },
@@ -316,13 +316,13 @@ export const App = ({
         {/* Hero Section */}
         <DefaultHero
           id='heroSection'
-          variant='fullscreen'
+          // variant='fullscreen'
         />
         {/* Content Section: Skills */}
         <Box
           id='about'
           component='section'
-          sx={{ backgroundColor: 'secondary.dark', py: { xs: 8, lg: 12 } }}
+          sx={{ backgroundColor: 'secondary.light', py: { xs: 8, lg: 12 } }}
         >
           <Container
             maxWidth='xxl'
@@ -363,12 +363,13 @@ export const App = ({
                     key={skill.name}
                   >
                     <Card elevation={0}>
-                      <CardActionArea>
+                      <CardActionArea onClick={skill.onClick || skill.onPrimaryClick}>
                         <CardMedia
                           component='img'
                           loading='lazy'
-                          height='140'
-                          image='https://placehold.co/800x400'
+                          src='https://placehold.co/300x300'
+                          srcSet='https://placehold.co/300x300 300w, https://placehold.co/600x600 600w, https://placehold.co/900x900 900w'
+                          sizes='(max-width: 600px) 300px, (max-width: 900px) 600px, 900px'
                           alt={skill.name}
                         />
                         <CardContent>
@@ -385,16 +386,6 @@ export const App = ({
                                 {skill.description}
                               </Typography>
                             </Stack>
-                            <CardActions sx={{ px: 0 }}>
-                              {skill.actionLabel && (
-                                <Button
-                                  variant='contained'
-                                  color='inherit'
-                                >
-                                  {skill.actionLabel}
-                                </Button>
-                              )}
-                            </CardActions>
                           </Stack>
                         </CardContent>
                       </CardActionArea>
