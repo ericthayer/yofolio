@@ -270,7 +270,7 @@ export const DefaultHero: React.FC<{
       variant={variant}
       sx={{
         minHeight:
-          variant === 'fullscreen' ? 'calc(100vh - (64px + 48px))' : 'auto',
+          variant === 'fullscreen' ? 'calc(100vh - (64px + 48px))' : 'clamp(30rem, 65vh, 75vh)',
       }}
     >
       <Hero.Container>
