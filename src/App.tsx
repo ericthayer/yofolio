@@ -30,12 +30,10 @@ import {
   lightThemeWithComponents,
   darkThemeWithComponents,
 } from './theme/theme.ts';
-import Button from '@mui/material/Button';
 import Card from '@mui/material/Card';
 import CardActionArea from '@mui/material/CardActionArea';
 import CardContent from '@mui/material/CardContent';
 import CardMedia from '@mui/material/CardMedia';
-import CardActions from '@mui/material/CardActions';
 import { Divider } from '@mui/material';
 type ThemeMode = 'light' | 'dark' | 'system';
 
@@ -316,7 +314,7 @@ export const App = ({
         {/* Hero Section */}
         <DefaultHero
           id='heroSection'
-          // variant='fullscreen'
+        // variant='fullscreen'
         />
         {/* Content Section: Skills */}
         <Box
