@@ -3,6 +3,7 @@ import Button from '@mui/material/Button';
 import Box from '@mui/material/Box';
 import Container from '@mui/material/Container';
 import Stack from '@mui/material/Stack';
+import { Sx, Theme } from '@mui/material/styles';
 import Typography from '@mui/material/Typography';
 import type { StackProps } from '@mui/material/Stack';
 import type { ContainerProps } from '@mui/material/Container';
