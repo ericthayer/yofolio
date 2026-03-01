@@ -4,7 +4,7 @@ import Box from '@mui/material/Box';
 import Container from '@mui/material/Container';
 import Stack from '@mui/material/Stack';
 import Typography from '@mui/material/Typography';
-import type { BoxProps } from '@mui/material/Stack';
+import type { BoxProps } from '@mui/material/Box';
 import type { StackProps } from '@mui/material/Stack';
 import type { ContainerProps } from '@mui/material/Container';
 import type { TypographyProps } from '@mui/material/Typography';
