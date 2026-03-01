@@ -257,7 +257,7 @@ export interface HeroDividerProps extends BoxProps {
 }
 
 export const HeroDivider: React.FC<HeroDividerProps> = ({
-  sx
+  sx,
   ...rest
 }) => {
   return (
