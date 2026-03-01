@@ -315,7 +315,7 @@ export const DefaultHero: React.FC<{
           </Hero.Actions>
         </Hero.Content>
       </Hero.Container>
-      <Hero.Divider />
+      <Hero.Divider>
     </Hero>
   );
 };
