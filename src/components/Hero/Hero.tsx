@@ -272,6 +272,7 @@ Hero.Headline = HeroHeadline;
 Hero.Description = HeroDescription;
 Hero.Actions = HeroActions;
 Hero.Action = HeroAction;
+Hero.Dividier = HeroDivider;
 
 // Default Hero Implementation (matches your current structure)
 export const DefaultHero: React.FC<{
