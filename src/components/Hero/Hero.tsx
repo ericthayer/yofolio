@@ -316,7 +316,7 @@ export const DefaultHero: React.FC<{
             <Hero.Action color='primary'>Work Experience</Hero.Action>
             <Hero.Action color='secondary'>View Resume</Hero.Action>
           </Hero.Actions>
-          <Hero.Divider></Hero.Divider>Hero.Divider>
+          <Hero.Divider>frfgf</Hero.Divider>
         </Hero.Content>
       </Hero.Container>
     </Hero>
