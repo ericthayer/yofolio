@@ -72,7 +72,7 @@ interface HeroCompoundComponent extends React.FC<HeroProps> {
   Description: typeof HeroDescription;
   Actions: typeof HeroActions;
   Action: typeof HeroAction;
-  Divider typeof HeroDivider;
+  Divider: typeof HeroDivider;
 }
 
 export const Hero = HeroComponent as HeroCompoundComponent;
