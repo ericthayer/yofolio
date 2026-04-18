@@ -2,7 +2,6 @@ import type { ThemeOptions } from '@mui/material/styles';
 import { createTheme } from '@mui/material/styles';
 import colors from './colors';
 
-// Add custom breakpoint keys to the theme
 declare module '@mui/material/styles' {
   interface BreakpointOverrides {
     xs: true;
@@ -20,22 +19,22 @@ export const lightThemePalette = createTheme({
   palette: {
     mode: 'light',
     primary: {
-      main: colors.primary[600],
-      light: colors.primary[400],
-      dark: colors.primary[700],
+      main: colors.primary.main,
+      light: colors.primary.light,
+      dark: colors.primary.dark,
     },
     secondary: {
-      main: colors.secondary[300],
-      light: colors.secondary[50],
-      dark: colors.secondary[500],
+      main: colors.secondary.main,
+      light: colors.secondary.light,
+      dark: colors.secondary.dark,
     },
     background: {
       default: colors.background.default,
       paper: colors.background.paper,
     },
     text: {
-      primary: colors.secondary[900],
-      secondary: colors.secondary[600],
+      primary: colors.common.black,
+      secondary: colors.accent.main, // Signal red as secondary highlight occasionally
     },
   },
 });
@@ -44,22 +43,22 @@ export const darkThemePalette = createTheme({
   palette: {
     mode: 'dark',
     primary: {
-      main: colors.primary[700],
-      light: colors.primary[500],
-      dark: colors.primary[800],
+      main: colors.common.black,
+      light: '#333333',
+      dark: '#000000',
     },
     secondary: {
-      main: colors.secondary[800],
-      light: colors.secondary[700],
-      dark: colors.secondary[900],
+      main: colors.background.default,
+      light: '#ffffff',
+      dark: colors.primary.main,
     },
     background: {
-      default: colors.secondary[1000],
-      paper: colors.secondary[800],
+      default: colors.common.black,
+      paper: '#1a1a1a',
     },
     text: {
-      primary: colors.secondary[50],
-      secondary: colors.secondary[300],
+      primary: colors.background.default,
+      secondary: colors.primary.main,
     },
   },
 });
@@ -71,7 +70,7 @@ export const breakpointsOverrides = createTheme({
       tiny: 320,
       sm: 576,
       md: 768,
-      lg: 1200,
+      lg: 1000, // Modified for horizontal scrolling transition logic
       xl: 1536,
       xxl: 1920,
       wide: 2560,
@@ -79,8 +78,6 @@ export const breakpointsOverrides = createTheme({
   },
 });
 
-// We should define palette options as separate light/dark objects
-// rather than trying to merge the themes
 export const lightPalette: ThemeOptions['palette'] = {
   ...lightThemePalette.palette,
 };
@@ -90,33 +87,36 @@ export const darkPalette: ThemeOptions['palette'] = {
 };
 
 export const brandedTypography: ThemeOptions['typography'] = {
-  fontFamily:
-    "'DM Sans Variable', system-ui, Avenir, Helvetica, Arial, sans-serif",
-  fontWeightLight: 400,
-  fontWeightRegular: 500,
-  fontWeightMedium: 550,
-  fontWeightBold: 650,
+  fontFamily: "'Space Grotesk', sans-serif",
   h1: {
-    fontSize: 'clamp(3rem, calc(1.525rem + 3.3vw), 4rem)',
+    fontFamily: "'Space Grotesk', sans-serif",
+    fontSize: 'clamp(3.5rem, calc(2rem + 4vw), 6rem)',
+    fontWeight: 700,
+    lineHeight: 1.1,
+    letterSpacing: '-0.03em',
+    textTransform: 'uppercase',
+  },
+  h2: {
+    fontFamily: "'Space Grotesk', sans-serif",
+    fontSize: 'clamp(2.5rem, 5vw, 4rem)',
     fontWeight: 700,
     lineHeight: 1.2,
     letterSpacing: '-0.02em',
-  },
-  h2: {
-    fontSize: '2.5rem',
-    fontWeight: 700,
-    lineHeight: 1.3,
-    letterSpacing: '-0.01em',
+    textTransform: 'uppercase',
   },
   h3: {
-    fontSize: '2rem',
-    fontWeight: 700,
-    lineHeight: 1.4,
+    fontFamily: "'DM Serif Display', serif",
+    fontStyle: 'italic',
+    fontSize: 'clamp(2rem, 4vw, 3rem)',
+    fontWeight: 400,
+    lineHeight: 1.2,
   },
   h4: {
-    fontSize: '1.5rem',
-    fontWeight: 650,
-    lineHeight: 1.4,
+    fontFamily: "'DM Serif Display', serif",
+    fontStyle: 'italic',
+    fontSize: 'clamp(1.5rem, 3vw, 2.5rem)',
+    fontWeight: 400,
+    lineHeight: 1.2,
   },
   h5: {
     fontSize: '1.25rem',
@@ -129,10 +129,11 @@ export const brandedTypography: ThemeOptions['typography'] = {
     lineHeight: 1.5,
   },
   body1: {
-    fontSize: '1rem',
+    fontSize: '1.125rem',
     lineHeight: 1.6,
   },
   body2: {
+    fontFamily: "'Space Mono', monospace",
     fontSize: '0.875rem',
     lineHeight: 1.5,
   },
@@ -147,73 +148,66 @@ export const brandedComponents: ThemeOptions['components'] = {
         textRendering: 'optimizeLegibility',
         WebkitFontSmoothing: 'antialiased',
         MozOsxFontSmoothing: 'grayscale',
-        // Smooth scrolling for anchor links
-        scrollBehavior: 'smooth',
       },
       body: {
         display: 'flex',
         flexDirection: 'column',
         minHeight: '100vh',
-      },
-      p: {
-        textWrap: 'pretty',
+        overflowX: 'hidden',
+        // Global noise overlay (pseudo-element to not block clicks)
+        '&::before': {
+          content: '""',
+          position: 'fixed',
+          top: 0,
+          left: 0,
+          width: '100%',
+          height: '100%',
+          pointerEvents: 'none',
+          zIndex: 9999,
+          opacity: 0.05,
+          /* SVG Filter for noise can also be applied via a base64 Data URI inline to guarantee it shows */
+          backgroundImage: `url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E")`,
+        },
       },
       '#root': {
-        display: 'grid',
-        gridTemplateRows: 'auto 1fr auto',
+        display: 'flex',
+        flexDirection: 'column',
         flex: 1,
       },
-      '.app-logo': {
-        maxWidth: '100%',
-        height: 'auto',
-        fontWeight: brandedTypography.fontWeightBold,
-      },
-      '.billboard-headline.billboard-headline': {
-        lineHeight: 1,
-        letterSpacing: '-0.03em',
-      },
-      '.billboard-description.billboard-description': {
-        fontSize: 'clamp(1rem, calc(0.875rem + 1.5vw), 1.25rem)',
-        fontWeight: brandedTypography.fontWeightRegular,
-      },
-      // Enhanced smooth scrolling with reduced motion support
-      '@media (prefers-reduced-motion: no-preference)': {
-        ':root': {
-          scrollBehavior: 'smooth',
-        },
-      },
-      // Respect user's motion preferences
-      '@media (prefers-reduced-motion: reduce)': {
-        ':root': {
-          scrollBehavior: 'auto',
-        },
-      },
     },
   },
-  MuiAppBar: {
+  MuiPaper: {
     styleOverrides: {
       root: {
-        '--AppBar-background': colors.secondary[200],
-        '--AppBar-color': lightThemePalette.palette.text.primary,
+        borderRadius: '2rem', // From the instructions: 2rem to 3rem for all containers
       },
     },
   },
-  MuiButtonBase: {
-    defaultProps: {
-      disableRipple: false,
+  MuiCard: {
+    styleOverrides: {
+      root: {
+        borderRadius: '2rem',
+        boxShadow: '0 10px 40px rgba(0,0,0,0.05)',
+      },
     },
   },
   MuiButton: {
     defaultProps: {
       disableElevation: true,
+      disableRipple: true, // we want custom GSAP interactions
     },
     styleOverrides: {
       root: {
-        minHeight: 44,
-        minWidth: 'unset',
-        textTransform: 'capitalize',
-        fontWeight: brandedTypography.fontWeightMedium,
-        borderRadius: 6,
+        borderRadius: '2rem',
+        textTransform: 'uppercase',
+        fontWeight: 700,
+        fontFamily: "'Space Grotesk', sans-serif",
+        padding: '0.75rem 2rem',
+        transition: 'all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94)',
+        overflow: 'hidden',
+        '&:hover': {
+          transform: 'scale(1.03)',
+        },
       },
     },
   },
