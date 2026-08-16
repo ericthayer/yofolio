@@ -11,13 +11,13 @@ Use this skill when the user asks to "create a component". This skill is designe
 
 **Philosophy & Approach**
 
-- **Spec-Driven Development (SDD)**: Always start by creating a technical specification using the [sdd-workflow](../workflows/sdd-workflow.md) template. Adhere to the `spec-driven-development.md` global rule.
+- **Spec-Driven Development (SDD)**: For substantial components, start by creating a technical specification using the [spec-driven-development](../../rules/spec-driven-development.md) rule.
   - Create the spec as `[ComponentName].spec.md` within the component folder before starting implementation.
   - **Living Document**: Refactor the spec for every new feature or discovery and maintain a timestamped **Changelog** at the bottom.
 - **Component Architecture**: Follow the `component-architecture.md` global rule (Folder-per-Component).
 
 ## Usage
-1.  **Draft the Spec**: Follow the [sdd-workflow](../workflows/sdd-workflow.md) template and create `src/components/[ComponentName]/[ComponentName].spec.md`. Initialize the **Changelog** section.
+1.  **Draft the Spec when warranted**: Create `src/components/[ComponentName]/[ComponentName].spec.md` for substantial components and initialize the **Changelog** section.
 2.  **Detect Framework & Stack**: Check `package.json` for dependencies (e.g., `@mui/material`, `tailwindcss`, `react` version). Adhere to project-specific rules like `three-js-react.md` if applicable.
 3.  **Implement & Update**: Follow the spec strictly. If architecture changes during build, update the spec and the changelog **before** proceeding.
 
@@ -38,7 +38,7 @@ Use this skill when the user asks to "create a component". This skill is designe
 ### Default (Vanilla React/CSS):
 - Use standard HTML tags.
 - Use CSS Modules or standard CSS
-- Use CSS Custom Properties to build a light/dark theme.
+- Use the project's existing CSS conventions; add a light/dark theme only when required by the product or existing theme configuration.
 
 ## Base Template
 

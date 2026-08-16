@@ -6,7 +6,7 @@ applyTo: '**'
 This document outlines the standards and best practices for Application Development which uses React, TypeScript, Material UI, and follows the [Airbnb style guide](https://airbnb.io/javascript/) page.
 
 ## Web Interface Guidelines - Development Standards and Guidelines
-ALWAYS refer to the `.github/instructions/web-interface-guidelines.instructions.md` file for detailed explicit guidelines to follow when building _any_ web interface.
+Refer to the `.agents/instructions/web-interface-guidelines.instructions.md` file for detailed guidelines when building a web interface.
 
 ## React
 
@@ -20,7 +20,7 @@ ALWAYS refer to the `.github/instructions/web-interface-guidelines.instructions.
 - **Props**:
   - Always use camelCase for prop names.
   - Define prop types using TypeScript interfaces.
-  - Always define explicit defaultProps for all non-required props.
+  - Use parameter defaults or destructuring defaults for optional function-component props. Do not use `defaultProps` on function components.
   - Consider using the Context API when passing props more than 2-3 component levels.
   - Use spread props sparingly.
   
