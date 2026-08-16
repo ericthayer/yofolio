@@ -1,4 +1,8 @@
-# Agents guidelines when building React applications with AI-powered tools
+# Agent guidelines for Yofolio
+
+These repository-wide guidelines apply to work in this repository. The `.agents/`
+directory contains supporting rules, instructions, prompts, and skills referenced
+below.
 
 **OBJECTIVE:**
 Building production-ready React applications with TypeScript and AI-powered tools.
@@ -7,7 +11,9 @@ Building production-ready React applications with TypeScript and AI-powered tool
 Enables rapid prototyping and design collaboration while delivering production-quality, maintainable code.
 
 **DESCRIPTION:**
-Use these instructions when building React applications in TypeScript, independent of specific UI frameworks.
+Use these instructions when building this React application in TypeScript. Follow
+the project configuration and existing implementation over generic examples below.
+Do not add a library, workflow, or artifact solely because it is mentioned here.
 
 **INSTRUCTIONS:**
 Create responsive, accessible React applications with TypeScript using strict configuration.
@@ -20,15 +26,26 @@ Create responsive, accessible React applications with TypeScript using strict co
 
 - DO NOT make changes outside the scope of the requested feature, i.e., don't modify the main navigation when asked to build a data table.
 
-- ALWAYS break out code into reusable components ready for export via ES module
+- Prefer reusable components and named ES module exports when a component is
+  shared or likely to be reused; do not split trivial, one-off markup solely to
+  satisfy this guideline.
 
-- ALWAYS follow the [Component Architecture](./rules/component-architecture.md) folder-per-component pattern
+- Follow the [Component Architecture](./.agents/rules/component-architecture.md)
+  folder-per-component pattern for major or reusable components. Match the
+  existing structure for small changes.
 
-- ALWAYS create SPEC.md before coding new features (see [Spec-Driven Development](./rules/spec-driven-development.md))
+- Create a `SPEC.md` before coding a substantial new feature when its scope,
+  architecture, or acceptance criteria need a written design. Small fixes and
+  focused changes do not require a spec. See [Spec-Driven Development](./.agents/rules/spec-driven-development.md).
+
+- Before choosing an implementation or validation step, inspect `package.json`,
+  the source tree, and relevant configuration. Treat every tool-specific
+  recommendation in this document as conditional on that tool being configured
+  or explicitly requested.
 
 Include the following specifications:
 
-1. **Accessibility & Performance**: Prioritize as first-class features. Follow [Web Interface Guidelines](./instructions/web-interface-guidelines.instructions.md):
+1. **Accessibility & Performance**: Prioritize as first-class features. Follow [Web Interface Guidelines](./.agents/instructions/web-interface-guidelines.instructions.md):
    - Semantic HTML (`<button>`, `<a>`, `<label>`, `<form>`)
    - ARIA labels for icon-only buttons and form controls
    - Keyboard navigation and visible focus states
@@ -44,18 +61,18 @@ Include the following specifications:
    - One component per file with PascalCase filename (`.tsx`)
    - Functional components with hooks
    - Explicit prop types via interfaces
-   - `defaultProps` for optional props
+   - Use parameter defaults or destructuring defaults for optional function-component props. Do not add `defaultProps` to function components.
    - Named exports or single default export
 
 5. **State Management**: 
    - Use `useState` and `useContext` for local/shared state
    - Consider Context API for multi-level prop passing (2-3+ levels)
-   - URL state for filters, tabs, pagination, expanded panels (use libraries like `nuqs`)
+   - Use URL state for filters, tabs, pagination, or expanded panels when the feature needs deep linking; use existing router conventions or an already-configured library.
 
 6. **Styling**: 
    - Use a consistent CSS-in-JS solution (Emotion, styled-components) or utility-based CSS
    - Create reusable design tokens (colors, typography, spacing)
-   - Support light/dark modes; persist user preference
+   - Support light/dark modes and persist user preference only when the product or existing theme configuration requires it.
    - Avoid `transition: all`; list properties explicitly
    - Honor `prefers-reduced-motion`
 
@@ -88,13 +105,13 @@ Include the following specifications:
 
 12. **Destructive Actions**: Require confirmation modal or undo window. Never immediate.
 
-13. **Testing & Documentation**: 
-    - Unit tests for core components and utilities
-    - Visual regression tests when possible
-    - Storybook or equivalent for documentation
-    - Accessibility audits (WCAG)
+13. **Testing & Documentation**:
+    - Add unit or integration tests for core behavior when a test runner is already configured, or when introducing a test setup is part of the requested change.
+    - Add visual regression tests only when the repository has a configured visual-testing workflow and the change warrants them.
+    - Add Storybook stories only when Storybook is configured or explicitly requested; do not introduce Storybook or story files by default.
+    - Perform accessibility review for user-facing UI. Use configured audit tooling when available, otherwise use a focused manual review.
 
-14. **Web Standards Compliance**: Follow all guidelines in [Web Interface Guidelines](./instructions/web-interface-guidelines.instructions.md) for forms, focus, animations, content handling, hydration, and copy.
+14. **Web Standards Compliance**: Follow all relevant guidelines in [Web Interface Guidelines](./.agents/instructions/web-interface-guidelines.instructions.md) for forms, focus, animations, content handling, hydration, and copy.
 
 ---
 
@@ -103,13 +120,12 @@ Include the following specifications:
 ### 1. Component Scaffolding Agent
 **Purpose**: Create new React components following project architecture patterns
 
-**Prompt**: Use [scaffold-component.prompt.md](./prompts/scaffold-component.prompt.md)
-
-**Skill**: [scaffold-component](./skills/scaffold-component/SKILL.md)
+**Skill**: [scaffold-component](./.agents/skills/scaffold-component/SKILL.md)
 
 **Capabilities**:
 - Generates component following folder-per-component architecture
-- Creates complete file structure: `.tsx`, `.stories.tsx`, `.mdx`, `index.ts`
+- Creates the files required by the feature and existing project conventions; add
+  stories or MDX only when Storybook is configured or requested
 - Applies Spec-Driven Development workflow
 - Auto-detects framework (Tailwind, MUI, Vanilla CSS)
 - Ensures accessibility standards and TypeScript strict typing
@@ -133,7 +149,7 @@ Features: status variants (success, warning, error, info), size variants
 ### 2. Accessibility Audit Agent
 **Purpose**: Verify components and pages meet WCAG accessibility standards
 
-**Skill**: [accessibility-audit](./skills/accessibility-audit/SKILL.md)
+**Skill**: [accessibility-audit](./.agents/skills/accessibility-audit/SKILL.md)
 
 **Capabilities**:
 - Scans components for WCAG violations
@@ -161,7 +177,7 @@ Generate remediation plan with priority levels
 ### 3. AI Integration Agent (Gemini)
 **Purpose**: Implement Google Gemini API integration with streaming and error handling
 
-**Skill**: [integrate-gemini](./skills/integrate-gemini/SKILL.md)
+**Skill**: [integrate-gemini](./.agents/skills/integrate-gemini/SKILL.md)
 
 **Capabilities**:
 - Implements secure API key handling
@@ -188,10 +204,8 @@ Include: retry logic, rate limit handling, proper attribution
 ### 4. Performance Optimization Agent
 **Purpose**: Analyze and optimize React component performance
 
-**Skill**: [vercel-react-best-practices](./skills/vercel-react-best-practices/SKILL.md)
-
 **Capabilities**:
-- Applies Vercel React Best Practices (45 rules across 8 categories)
+- Applies relevant React performance practices supported by the repository
 - Analyzes bundle size and tree-shaking opportunities
 - Identifies re-render issues and optimization opportunities
 - Implements memoization patterns (`React.memo`, `useMemo`, `useCallback`)
@@ -219,10 +233,10 @@ Priority: Apply bundle optimization and re-render prevention patterns
 ### 5. Component Refactor Agent
 **Purpose**: Refactor existing components to follow standards and best practices
 
-**Process**: Follows [Spec-Driven Development](./skills/workflows/sdd-workflow.md) workflow
+**Process**: Follows [Spec-Driven Development](./.agents/rules/spec-driven-development.md) workflow when a spec is warranted
 
 **Capabilities**:
-- Creates or updates component spec before refactoring
+- Creates or updates a component spec before substantial refactoring
 - Updates components to latest framework patterns
 - Applies TypeScript best practices
 - Applies Vercel React Best Practices optimization rules
@@ -252,8 +266,6 @@ Maintain backward compatibility (minor version bump)
 ### 6. Pull Request Agent
 **Purpose**: Generate comprehensive PR descriptions from git commits
 
-**Prompt**: Use [create-pr.prompt.md](./prompts/create-pr.prompt.md)
-
 **Capabilities**:
 - Analyzes git commit history and diffs
 - Generates structured PR descriptions
@@ -280,7 +292,7 @@ Related: Issue #123
 ### 7. Specification Development Agent
 **Purpose**: Create technical specifications before implementation
 
-**Workflow**: [sdd-workflow.md](./skills/workflows/sdd-workflow.md)
+**Workflow**: [spec-driven-development.md](./.agents/rules/spec-driven-development.md)
 
 **Capabilities**:
 - Creates comprehensive component/feature specifications
@@ -288,7 +300,7 @@ Related: Issue #123
 - Defines accessibility and performance requirements
 - Establishes implementation checklist
 - Maintains changelog of spec updates
-- Ensures alignment with [spec-driven-development.md](./rules/spec-driven-development.md)
+- Ensures alignment with [spec-driven-development.md](./.agents/rules/spec-driven-development.md)
 
 **Required Inputs**:
 - Component or feature name
@@ -309,7 +321,7 @@ Output: ImageGallery.spec.md following SDD template
 ### 8. Storybook Documentation Agent
 **Purpose**: Generate comprehensive Storybook stories and documentation
 
-**Instruction**: [storybook.instructions.md](./instructions/storybook.instructions.md)
+**Instruction**: Use the project's configured Storybook instructions, when Storybook is enabled.
 
 **Capabilities**:
 - Creates interactive stories with all component variants
@@ -357,7 +369,7 @@ Include: accessibility section, code examples, interactive controls
 1. **Specification Development Agent** → Create `[ComponentName].spec.md`
 2. **Component Scaffolding Agent** → Generate component files following spec
 3. **Accessibility Audit Agent** → Verify WCAG compliance
-4. **Storybook Documentation Agent** → Create interactive documentation
+4. **Storybook Documentation Agent** → Create interactive documentation when configured or requested
 5. **Pull Request Agent** → Generate PR description
 
 ### Performance Optimization Process
@@ -386,41 +398,33 @@ Include: accessibility section, code examples, interactive controls
 ### Instructions
 | File | Purpose | Agent Usage |
 |------|---------|-------------|
-| `instructions/development-standards.instructions.md` | Code style and quality standards | Component Scaffolding, Component Refactor |
-| `instructions/web-interface-guidelines.instructions.md` | Accessibility and UX guidelines | All agents building UI components |
-| `instructions/mui.instructions.md` | Material-UI (MUI v7+) specific patterns and theming | Component Scaffolding (when MUI detected), Component Refactor |
-| `instructions/storybook.instructions.md` | Documentation standards | Storybook Documentation |
-| `instructions/github-issue.instructions.md` | Issue creation guidelines | Pull Request, Specification Development |
-| `instructions/github-release-notes.instructions.md` | Release documentation standards | Pull Request |
+| `.agents/instructions/development-standards.instructions.md` | Code style and quality standards | Component Scaffolding, Component Refactor |
+| `.agents/instructions/web-interface-guidelines.instructions.md` | Accessibility and UX guidelines | All agents building UI components |
+| `.agents/instructions/mui.instructions.md` | Material-UI (MUI v7+) specific patterns and theming | Component Scaffolding (when MUI is used), Component Refactor |
 
 ### Rules
 | File | Purpose | Agent Usage |
 |------|---------|-------------|
-| `rules/component-architecture.md` | Folder-per-component pattern | Component Scaffolding, Component Refactor |
-| `rules/spec-driven-development.md` | Spec-first development process | All agents creating new features |
-| `rules/accessibility.md` | WCAG compliance guidelines | Accessibility Audit, Component Scaffolding |
-| `rules/web-performance.md` | Performance optimization patterns | Performance Optimization |
-| `rules/react-19-compiler.md` | React 19 optimization guidelines | Performance Optimization, Component Refactor |
-| `rules/gemini.md` | Google Gemini AI integration rules, security, and UX patterns | AI Integration (Gemini) |
-| `rules/mui.md` | Material-UI architecture patterns and constraints | Component Scaffolding (when MUI detected), Component Refactor |
-| `rules/tailwind-v4.md` | Tailwind CSS v4 patterns | Component Scaffolding (when Tailwind detected) |
-| `rules/three-js-react.md` | 3D graphics integration | Component Scaffolding (when Three.js detected) |
-| `rules/supabase.md` | Backend integration patterns | AI Integration, Component Scaffolding |
+| `.agents/rules/component-architecture.md` | Folder-per-component pattern | Component Scaffolding, Component Refactor |
+| `.agents/rules/spec-driven-development.md` | Spec-first development process | Agents creating substantial new features |
+| `.agents/rules/accessibility.md` | WCAG compliance guidelines | Accessibility Audit, Component Scaffolding |
+| `.agents/rules/web-performance.md` | Performance optimization patterns | Performance Optimization |
+| `.agents/rules/gemini.md` | Google Gemini AI integration rules, security, and UX patterns | AI Integration (Gemini) |
+| `.agents/rules/mui.md` | Material-UI architecture patterns and constraints | Component Scaffolding (when MUI is used), Component Refactor |
+| `.agents/rules/tailwind-v4.md` | Tailwind CSS v4 patterns | Component Scaffolding (when Tailwind is used) |
+| `.agents/rules/three-js-react.md` | 3D graphics integration | Component Scaffolding (when Three.js is used) |
+| `.agents/rules/supabase.md` | Backend integration patterns | AI Integration, Component Scaffolding (when Supabase is used) |
 
 ### Prompts
 | File | Purpose | Agent Usage |
 |------|---------|-------------|
-| `prompts/scaffold-component.prompt.md` | Component creation template | Component Scaffolding |
-| `prompts/create-pr.prompt.md` | PR description template | Pull Request |
 
 ### Skills
 | Directory | Purpose | Agent Usage |
 |-----------|---------|-------------|
-| `skills/accessibility-audit/` | Accessibility verification checklist | Accessibility Audit |
-| `skills/scaffold-component/` | Component scaffolding workflow | Component Scaffolding |
-| `skills/integrate-gemini/` | AI integration patterns | AI Integration |
-| `skills/vercel-react-best-practices/` | Performance optimization rules (45 rules, 8 categories) | Performance Optimization |
-| `skills/workflows/` | Development workflows (SDD, setup) | All agents following SDD |
+| `.agents/skills/accessibility-audit/` | Accessibility verification checklist | Accessibility Audit |
+| `.agents/skills/scaffold-component/` | Component scaffolding workflow | Component Scaffolding |
+| `.agents/skills/integrate-gemini/` | AI integration patterns | AI Integration |
 
 ---
 
@@ -458,13 +462,13 @@ Include: accessibility section, code examples, interactive controls
 To extend or modify this agents knowledge base:
 
 ### Adding New Rules
-1. Create file in `rules/[topic-name].md`
+1. Create file in `.agents/rules/[topic-name].md`
 2. Follow existing rule format (problem, solution, examples)
 3. Reference from relevant agent in `AGENTS.md`
 4. Update `README.md` with description
 
 ### Adding New Skills
-1. Create directory `skills/[skill-name]/`
+1. Create directory `.agents/skills/[skill-name]/`
 2. Add `SKILL.md` with frontmatter and documentation
 3. Include examples and integration patterns
 4. Reference from relevant agent in `AGENTS.md`
@@ -478,7 +482,7 @@ To extend or modify this agents knowledge base:
 6. Consider which **rules** and **skills** it should reference
 
 ### Updating Instructions
-1. Edit files in `instructions/` directory
+1. Edit files in `.agents/instructions/` directory
 2. Keep guidelines concise and actionable
 3. Use MUST/SHOULD/NEVER for clarity
 4. Include examples where helpful
@@ -486,5 +490,4 @@ To extend or modify this agents knowledge base:
 
 ---
 
-**Last Updated**: January 31, 2026
-
+**Last Updated**: August 16, 2026
