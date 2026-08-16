@@ -277,26 +277,32 @@ export const DefaultHero: React.FC<{
         <Hero.Content>
           <Hero.Text>
             <Hero.Headline>
-              UX Engineer <Box component='small'>&amp;</Box>{' '}
+              Principal Design Engineer <Box component='small'>&amp;</Box>{' '}
               <Box
                 component='br'
                 sx={{ display: { xs: 'block', sm: 'none' } }}
               />
-              Systems Lead
+              UX Systems Lead
             </Hero.Headline>
             <Hero.Description>
-              I'm a skilled&mdash;Creative Strategist, Product Designer, and
-              Front-end Developer.{' '}
-              <Box
-                component='br'
-                sx={{ display: { xs: 'none', md: 'block' } }}
-              />
-              Please let me know how I can help your team or project succeed.
+              As a Senior UX Engineer at CoBank, I build AI-enabled design
+              systems, agentic workflows, and scalable front-end platforms that
+              help teams ship faster with greater consistency and accessibility.
             </Hero.Description>
           </Hero.Text>
           <Hero.Actions>
-            <Hero.Action color='primary'>Work Experience</Hero.Action>
-            <Hero.Action color='secondary'>View Resume</Hero.Action>
+            <Hero.Action
+              color='primary'
+              href='#experience'
+            >
+              Work Experience
+            </Hero.Action>
+            <Hero.Action
+              color='secondary'
+              href='#about'
+            >
+              Core Strengths
+            </Hero.Action>
           </Hero.Actions>
         </Hero.Content>
       </Hero.Container>
