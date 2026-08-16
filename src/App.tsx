@@ -3,8 +3,6 @@ import { useState, useEffect } from 'react';
 import { ThemeProvider, useTheme } from '@mui/material/styles';
 
 import Box from '@mui/material/Box';
-import Container from '@mui/material/Container';
-import Grid from '@mui/material/Grid';
 import CssBaseline from '@mui/material/CssBaseline';
 import AppBar from '@mui/material/AppBar';
 import Link from '@mui/material/Link';
@@ -17,6 +15,7 @@ import Typography from '@mui/material/Typography';
 
 import { DefaultHero } from './components/Hero';
 import { NavList } from './components/List';
+import { PortfolioContent } from './components/PortfolioContent';
 import { socialNavLinks } from './data/socialLinks';
 import { mainNavLinks, footerNavLinks } from './data/navigationLinks';
 
@@ -30,11 +29,6 @@ import {
   lightThemeWithComponents,
   darkThemeWithComponents,
 } from './theme/theme.ts';
-import Card from '@mui/material/Card';
-import CardActionArea from '@mui/material/CardActionArea';
-import CardContent from '@mui/material/CardContent';
-import CardMedia from '@mui/material/CardMedia';
-import { Divider } from '@mui/material';
 type ThemeMode = 'light' | 'dark' | 'system';
 
 export interface AppProps {
@@ -51,57 +45,6 @@ const themeSwitcherIcons = (themeMode: ThemeMode) => {
     </>
   );
 };
-
-const professionalSkills = [
-  {
-    name: 'UX Design',
-    description:
-      'Experienced in creating user-centered designs through research, prototyping, and usability testing.',
-    actionLabel: 'Learn More',
-    onPrimaryClick: () => {
-      alert('Clicked UX Design!');
-    },
-  },
-  {
-    name: 'Front-end Development',
-    description:
-      'Proficient in building responsive and interactive user interfaces using HTML, CSS, and modern JavaScript frameworks.',
-    actionLabel: 'Learn More',
-    onPrimaryClick: () => {
-      alert('Clicked Front-end Development!');
-    },
-  },
-  {
-    name: 'Design Systems',
-    description:
-      'Skilled in creating and maintaining design systems that ensure consistency and scalability across products.',
-    actionLabel: 'Learn More',
-    onClick: () => {
-      alert('Clicked Design Systems!');
-    },
-  },
-];
-
-// const developmentSkills = [
-//   {
-//     name: 'JavaScript',
-//     description:
-//       'Experienced in building dynamic web applications using JavaScript, including ES6+ features and frameworks like React and Node.js.',
-//     actionLabel: 'Learn More',
-//   },
-//   {
-//     name: 'TypeScript',
-//     description:
-//       'Proficient in TypeScript for developing robust and maintainable codebases, with experience in type safety and advanced typing features.',
-//     actionLabel: 'Learn More',
-//   },
-//   {
-//     name: 'React',
-//     description:
-//       'Skilled in building responsive and interactive user interfaces with React, utilizing hooks, context, and state management libraries.',
-//     actionLabel: 'Learn More',
-//   },
-// ];
 
 export const App = ({
   appLogo = YofolioLogo,
@@ -316,84 +259,7 @@ export const App = ({
           id='heroSection'
         // variant='fullscreen'
         />
-        {/* Content Section: Skills */}
-        <Box
-          id='about'
-          component='section'
-          sx={{ backgroundColor: 'secondary.light', py: { xs: 8, lg: 12 } }}
-        >
-          <Container
-            maxWidth='xxl'
-            sx={{ px: { xs: 4, md: 6 } }}
-          >
-            <Stack gap={8}>
-              <Stack gap={4}>
-                <Stack gap={2}>
-                  <Typography
-                    variant='h4'
-                    component='h2'
-                    sx={{ textTransform: 'uppercase' }}
-                  >
-                    Skilled Communicator
-                  </Typography>
-                  <Divider
-                    sx={{ borderBottomWidth: 2, maxWidth: { md: '40vw' } }}
-                  />
-                </Stack>
-                <Typography
-                  variant='body1'
-                  component='p'
-                  sx={{ maxWidth: { md: '84ch' } }}
-                >
-                  My ability to collaborate with cross-functional department
-                  team leaders, identify and resolve issues, prioritize
-                  projects, and provide a high level of service is what makes me
-                  a valued contributor.
-                </Typography>
-              </Stack>
-              <Grid
-                container
-                spacing={4}
-              >
-                {professionalSkills.map((skill) => (
-                  <Grid
-                    size={{ xs: 12, sm: 6, md: 4 }}
-                    key={skill.name}
-                  >
-                    <Card elevation={0}>
-                      <CardActionArea onClick={skill.onClick || skill.onPrimaryClick}>
-                        <CardMedia
-                          component='img'
-                          loading='lazy'
-                          src='https://placehold.co/300x300'
-                          srcSet='https://placehold.co/300x300 300w, https://placehold.co/600x600 600w, https://placehold.co/900x900 900w'
-                          sizes='(max-width: 600px) 300px, (max-width: 900px) 600px, 900px'
-                          alt={skill.name}
-                        />
-                        <CardContent>
-                          <Stack gap={2}>
-                            <Stack gap={0}>
-                              <Typography
-                                variant='h5'
-                                component='h2'
-                                gutterBottom
-                              >
-                                {skill.name}
-                              </Typography>
-                              <Typography variant='body2'>
-                                {skill.description}
-                              </Typography>
-                            </Stack>
-                          </Stack>
-                        </CardContent>
-                      </CardActionArea>
-                    </Card>
-                  </Grid>
-                ))}
-              </Grid>
-            </Stack>
-          </Container>
-        </Box>
+        <PortfolioContent />
       </Stack>
       {/* App Footer */}
       <AppBar
