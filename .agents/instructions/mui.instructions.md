@@ -27,7 +27,7 @@ Include the following specifications:
 
 9. **Component Architecture**: Extend MUI base components with TypeScript. Use PascalCase for filenames (`.tsx`). One component per file. Prefer functional components with hooks.
 
-10. **Testing & Documentation**: Create Storybook documentation and visual regression tests (Playwright/Chromatic when possible).
+10. **Testing & Documentation**: Create Storybook documentation or visual regression tests only when those tools are configured or explicitly requested for the project.
 
 11. **Web Standards Compliance**: Ensure forms, inputs, focus states, and interactive elements meet standards in the Web Interface Guidelines:
     - Form inputs require labels and proper `type`/`inputmode`
