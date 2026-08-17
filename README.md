@@ -4,24 +4,42 @@
 
 [yofolio.design](https://yofolio.design/)
 
-Kickstart your professional online presence with our lightweight, easy-to-build, portfolio starter kit. Perfect for creatives who want a clean, professional HTML-based portfolio without the complexity. Clone, customize, and deploy in minutes with Netlify.
+Yofolio is Eric Thayer's portfolio and writing site. It combines a React and MUI
+portfolio with an Astro-powered, Git-backed publishing workflow.
 
-Built with Bootstrap and Vite, this open-source solution offers a perfect balance of simplicity and customization for developers and creatives.
+Astro owns the static site build and article routes. The existing React portfolio
+is preserved as an interactive island, while Markdown and MDX files provide a
+lightweight CMS-like authoring experience without a database or admin service.
 
 ## Features
 
-- **Bootstrap Framework:** Leverage the latest Bootstrap features for responsive layouts and modern components
-- **Vite Build System:** Enjoy lightning-fast development with hot module replacement and optimized builds
-- **One-Page Design:** Present all your information elegantly on a single, scrollable page
-- **Portfolio Sections:** Pre-built areas for about, projects, skills, and contact information
-- **Easy Customization:** Well-organized SCSS theme
+- **Astro Publishing:** Generate static article pages from validated Markdown or
+  MDX content collections.
+- **React and MUI Portfolio:** Preserve the responsive one-page portfolio,
+  interactive theme controls, and topic filtering.
+- **Git-Backed Content:** Preview drafts locally and publish by changing
+  frontmatter and committing the article.
+- **Typed Content Contract:** Catch missing or invalid article metadata during
+  content sync and production builds.
 
 ## Technical Details
 
-- Modern vanilla JavaScript with no complex dependencies
-- SCSS custom [theme mapping](THEME.md)
-- Optimized asset handling through Vite
-- Includes common portfolio components and layouts
+- Astro 7 static output with `@astrojs/react` and `@astrojs/mdx`.
+- React 19 canary, TypeScript, Material UI, and Emotion.
+- Local content collection in `src/content/writing/`.
+- Publishing instructions in
+  [`src/components/Writing/PUBLISHING.md`](src/components/Writing/PUBLISHING.md).
+
+## Commands
+
+```bash
+npm ci
+npm run dev
+npm run new:article -- "Article title"
+npm test
+npm run lint
+npm run build
+```
 
 ## Roadmap
 

@@ -1,0 +1,42 @@
+---
+import {
+  getCollection,
+  render,
+  type CollectionEntry,
+} from 'astro:content';
+
+import ArticleLayout from '../../layouts/ArticleLayout.astro';
+import { topicLabels } from '../../content/writing-model';
+
+interface Props {
+  entry: CollectionEntry<'writing'>;
+}
+
+export async function getStaticPaths() {
+  const entries = await getCollection(
+    'writing',
+    ({ data }) => import.meta.env.DEV || !data.draft,
+  );
+
+  return entries.map((entry) => ({
+    params: { id: entry.id },
+    props: { entry },
+  }));
+}
+
+const { entry } = Astro.props;
+const { Content } = await render(entry);
+const { data } = entry;
+---
+
+<ArticleLayout
+  title={data.title}
+  summary={data.summary}
+  topics={data.topics.map((topic) => topicLabels[topic])}
+  status={data.draft ? 'Draft' : 'Published'}
+  readingTime={`${data.readingTime} min read`}
+  publishedAt={data.publishedAt}
+  media={data.media}
+>
+  <Content />
+</ArticleLayout>

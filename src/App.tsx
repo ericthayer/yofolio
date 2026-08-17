@@ -23,7 +23,8 @@ import LightModeIcon from '@mui/icons-material/LightMode';
 import DarkModeIcon from '@mui/icons-material/DarkMode';
 import SettingsBrightnessIcon from '@mui/icons-material/Contrast';
 
-import YofolioLogo from './assets/images/logo-light-ethayer-no-mark.svg';
+import YofolioLogo from './assets/images/logo-light-ethayer-no-mark.svg?url';
+import type { WritingArticle } from './content/writing-model';
 
 import {
   lightThemeWithComponents,
@@ -34,6 +35,7 @@ type ThemeMode = 'light' | 'dark' | 'system';
 export interface AppProps {
   appLogo?: string;
   appTitle?: string;
+  articles?: WritingArticle[];
 }
 
 const themeSwitcherIcons = (themeMode: ThemeMode) => {
@@ -49,6 +51,7 @@ const themeSwitcherIcons = (themeMode: ThemeMode) => {
 export const App = ({
   appLogo = YofolioLogo,
   appTitle = 'Yofolio',
+  articles = [],
 }: AppProps) => {
   const theme = useTheme();
 
@@ -259,7 +262,7 @@ export const App = ({
           id='heroSection'
         // variant='fullscreen'
         />
-        <PortfolioContent />
+        <PortfolioContent articles={articles} />
       </Stack>
       {/* App Footer */}
       <AppBar

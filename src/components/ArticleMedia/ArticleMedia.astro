@@ -1,0 +1,121 @@
+---
+import type { ArticleMedia } from '../../content/media-model';
+
+interface Props {
+  media: ArticleMedia;
+}
+
+const { media } = Astro.props;
+---
+
+{
+  media.type === 'image' ? (
+    <figure class='article-media'>
+      <img
+        src={media.src}
+        alt={media.alt}
+        width={media.width}
+        height={media.height}
+        loading={media.loading}
+        decoding='async'
+      />
+      {media.caption ? <figcaption>{media.caption}</figcaption> : null}
+    </figure>
+  ) : media.type === 'video' ? (
+    <figure class='article-media'>
+      <video
+        controls
+        preload='metadata'
+        poster={media.poster}
+        width={media.width}
+        height={media.height}
+        aria-label={media.title}
+      >
+        <source src={media.src} />
+        <track
+          kind='captions'
+          src={media.captions}
+          srclang='en'
+          label='English captions'
+          default
+        />
+        Your browser does not support the video element. <a href={media.src}>Download the video</a>.
+      </video>
+      {media.caption ? <figcaption>{media.caption}</figcaption> : null}
+    </figure>
+  ) : (
+    <aside class='article-document'>
+      <div>
+        <p class='article-document-type'>{media.mimeType ?? 'Document'}</p>
+        <h2>{media.title}</h2>
+        <p>{media.description}</p>
+      </div>
+      <a href={media.src} download={media.label ? true : undefined}>
+        {media.label ?? 'Open document'}
+      </a>
+    </aside>
+  )
+}
+
+<style>
+  .article-media {
+    margin: 3rem 0;
+  }
+
+  .article-media img,
+  .article-media video {
+    display: block;
+    width: 100%;
+    height: auto;
+    border: 1px solid var(--border);
+    background: var(--surface);
+  }
+
+  figcaption {
+    margin-top: 0.75rem;
+    color: var(--muted);
+    font-size: 0.875rem;
+    line-height: 1.5;
+  }
+
+  .article-document {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1.5rem;
+    margin: 3rem 0;
+    padding: 1.5rem;
+    border: 1px solid var(--border);
+    background: var(--surface);
+  }
+
+  .article-document h2 {
+    margin: 0.25rem 0 0.5rem;
+    font-size: 1.25rem;
+    line-height: 1.25;
+  }
+
+  .article-document p {
+    margin: 0;
+  }
+
+  .article-document-type {
+    color: var(--muted);
+    font-size: 0.75rem;
+    font-weight: 650;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+
+  .article-document a {
+    flex: 0 0 auto;
+    font-weight: 650;
+  }
+
+  @media (max-width: 40rem) {
+    .article-document {
+      align-items: flex-start;
+      flex-direction: column;
+    }
+  }
+</style>

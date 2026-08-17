@@ -1,0 +1,61 @@
+---
+import '@fontsource-variable/dm-sans/index.css';
+
+import { getCollection } from 'astro:content';
+
+import App from '../App';
+
+const writingEntries = await getCollection(
+  'writing',
+  ({ data }) => import.meta.env.DEV || !data.draft,
+);
+
+const articles = writingEntries
+  .map(({ id, data }) => ({
+    id,
+    title: data.title,
+    summary: data.summary,
+    topics: data.topics,
+    status: data.draft ? ('Draft' as const) : ('Published' as const),
+    readingTime: `${data.readingTime} min read`,
+    href: `/writing/${id}/`,
+    publishedAt: data.publishedAt?.toISOString(),
+  }))
+  .sort((left, right) => {
+    if (left.publishedAt && right.publishedAt) {
+      return right.publishedAt.localeCompare(left.publishedAt);
+    }
+
+    if (left.publishedAt) return -1;
+    if (right.publishedAt) return 1;
+    return left.title.localeCompare(right.title);
+  });
+---
+
+<!doctype html>
+<html lang='en'>
+  <head>
+    <meta charset='UTF-8' />
+    <meta
+      name='viewport'
+      content='width=device-width, initial-scale=1.0'
+    />
+    <meta
+      name='description'
+      content='Eric Thayer builds AI-enabled design systems, agentic workflows, and scalable frontend platforms.'
+    />
+    <link
+      rel='icon'
+      href='/favicon.svg'
+      type='image/svg+xml'
+    />
+    <title>Eric Thayer — Principal Design Engineer</title>
+  </head>
+  <body>
+    <App
+      client:only='react'
+      appTitle='Eric Thayer'
+      articles={articles}
+    />
+  </body>
+</html>
