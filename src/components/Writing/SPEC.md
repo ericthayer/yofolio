@@ -26,11 +26,6 @@ published article metadata and URLs later.
   stable React peer ranges that intentionally exclude prerelease builds.
 - Static, typed article and topic data stored at module scope.
 - Local topic-filter state managed by `useState`.
-- Filter updates run inside `startTransition`.
-- Each rendered article has a keyed `ViewTransition` boundary so filtering
-  communicates which entries remain, enter, or exit.
-- A dedicated global stylesheet contains the complete native view-transition
-  recipes, including reduced-motion overrides.
 - The component introduces no router, remote data, or additional UI library.
 
 ## Content Model
@@ -56,7 +51,6 @@ The topic controls include All, Design, UX, Design Systems, and Frontend.
   native button semantics.
 - Announce the visible article count after filtering with a polite live region.
 - Keep every control at least 44 CSS pixels high and keyboard operable.
-- Disable view-transition animation when `prefers-reduced-motion: reduce`.
 
 ## Responsive Design
 
@@ -73,17 +67,13 @@ The topic controls include All, Design, UX, Design Systems, and Frontend.
   small and does not require memoization.
 - Import MUI components directly.
 - Do not add images, network requests, or remote assets.
-- Set `default="none"` on each `ViewTransition` so unrelated transitions do not
-  animate the collection.
 
 ## Acceptance Criteria
 
 - The existing Writing navigation link reaches the new section.
 - The collection includes realistic draft entries spanning all four requested
   subject areas.
-- Topic filtering updates the visible entries and count without blocking input.
-- Entries animate only when filtering, with graceful fallback in unsupported
-  browsers and no motion under reduced-motion preferences.
+- Topic filtering updates the visible entries and count immediately.
 - The layout remains readable at 320, 768, 1024, and 1440 CSS pixels.
 - Heading hierarchy, focus order, accessible names, and color usage meet WCAG
   2.1 AA expectations.

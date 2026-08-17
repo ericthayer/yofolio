@@ -107,10 +107,6 @@ const {
 </html>
 
 <style is:global>
-  @view-transition {
-    navigation: auto;
-  }
-
   :root {
     color-scheme: light dark;
     font-family:
@@ -291,16 +287,4 @@ const {
     }
   }
 
-  @media (prefers-reduced-motion: reduce) {
-    html {
-      scroll-behavior: auto;
-    }
-
-    ::view-transition-old(*),
-    ::view-transition-new(*),
-    ::view-transition-group(*) {
-      animation-duration: 0s !important;
-      animation-delay: 0s !important;
-    }
-  }
 </style>

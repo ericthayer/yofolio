@@ -21,8 +21,6 @@ lightweight CMS-like authoring experience without a database or admin service.
   frontmatter and committing the article.
 - **Typed Content Contract:** Catch missing or invalid article metadata during
   content sync and production builds.
-- **Native View Transitions:** Animate Writing filters and cross-document
-  navigation with reduced-motion support.
 
 ## Technical Details
 

@@ -1,4 +1,4 @@
-import { startTransition, useState, ViewTransition } from 'react';
+import { useState } from 'react';
 
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
@@ -34,9 +34,7 @@ export const Writing = ({ articles }: WritingProps) => {
       return;
     }
 
-    startTransition(() => {
-      setActiveFilter(filter);
-    });
+    setActiveFilter(filter);
   };
 
   return (
@@ -158,88 +156,82 @@ export const Writing = ({ articles }: WritingProps) => {
                 }}
               >
                 {visibleArticles.map((article) => (
-                  <ViewTransition
+                  <Box
                     key={article.id}
-                    default='none'
-                    enter='fade-in'
-                    exit='fade-out'
+                    component='li'
+                    sx={{
+                      borderBottom: 1,
+                      borderColor: 'divider',
+                      py: { xs: 4, md: 5 },
+                    }}
                   >
-                    <Box
-                      component='li'
-                      sx={{
-                        borderBottom: 1,
-                        borderColor: 'divider',
-                        py: { xs: 4, md: 5 },
-                      }}
+                    <Grid
+                      component='article'
+                      container
+                      spacing={{ xs: 2, md: 6 }}
                     >
-                      <Grid
-                        component='article'
-                        container
-                        spacing={{ xs: 2, md: 6 }}
-                      >
-                        <Grid size={{ xs: 12, md: 3 }}>
-                          <Stack
-                            direction={{ xs: 'row', md: 'column' }}
-                            flexWrap='wrap'
-                            gap={{ xs: 1, md: 0.5 }}
+                      <Grid size={{ xs: 12, md: 3 }}>
+                        <Stack
+                          direction={{ xs: 'row', md: 'column' }}
+                          flexWrap='wrap'
+                          gap={{ xs: 1, md: 0.5 }}
+                        >
+                          <Typography
+                            variant='overline'
+                            component='span'
+                            color='text.primary'
                           >
-                            <Typography
-                              variant='overline'
-                              component='span'
-                              color='text.primary'
-                            >
-                              {article.status}
-                            </Typography>
-                            <Typography
-                              variant='body2'
-                              component='span'
-                              color='text.primary'
-                            >
-                              {article.readingTime}
-                            </Typography>
-                            <Typography
-                              variant='body2'
-                              component='span'
-                              color='text.primary'
-                            >
-                              {article.topics
-                                .map((topic) => topicLabels[topic])
-                                .join(' · ')}
-                            </Typography>
-                          </Stack>
-                        </Grid>
-
-                        <Grid size={{ xs: 12, md: 9 }}>
-                          <Stack gap={1.5}>
-                            <Typography
-                              variant='h5'
-                              component='h3'
-                            >
-                              {article.href ? (
-                                <Link
-                                  href={article.href}
-                                  color='inherit'
-                                  underline='hover'
-                                >
-                                  {article.title}
-                                </Link>
-                              ) : (
-                                article.title
-                              )}
-                            </Typography>
-                            <Typography
-                              variant='body1'
-                              component='p'
-                              color='text.primary'
-                              sx={{ maxWidth: '72ch' }}
-                            >
-                              {article.summary}
-                            </Typography>
-                          </Stack>
-                        </Grid>
+                            {article.status}
+                          </Typography>
+                          <Typography
+                            variant='body2'
+                            component='span'
+                            color='text.primary'
+                          >
+                            {article.readingTime}
+                          </Typography>
+                          <Typography
+                            variant='body2'
+                            component='span'
+                            color='text.primary'
+                          >
+                            {article.topics
+                              .map((topic) => topicLabels[topic])
+                              .join(' · ')}
+                          </Typography>
+                        </Stack>
                       </Grid>
-                    </Box>
-                  </ViewTransition>
+
+                      <Grid size={{ xs: 12, md: 9 }}>
+                        <Stack gap={1.5}>
+                          <Typography
+                            variant='h5'
+                            component='h3'
+                          >
+                            {article.href ? (
+                              <Link
+                                href={article.href}
+                                color='inherit'
+                                underline='hover'
+                              >
+                                {article.title}
+                              </Link>
+                            ) : (
+                              article.title
+                            )}
+                          </Typography>
+                          <Typography
+                            variant='body1'
+                            component='p'
+                            color='text.primary'
+                            sx={{ maxWidth: '72ch' }}
+                          >
+                            {article.summary}
+                          </Typography>
+                        </Stack>
+                      </Grid>
+                    </Grid>
+                  </Box>
                 ))}
               </Stack>
             ) : (
