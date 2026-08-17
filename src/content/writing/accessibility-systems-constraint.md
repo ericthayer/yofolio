@@ -5,7 +5,8 @@ topics:
   - ux
   - design-systems
 readingTime: 5
-draft: true
+publishedAt: 2026-08-16
+draft: false
 ---
 
 Accessibility becomes more reliable when teams stop treating it as a final

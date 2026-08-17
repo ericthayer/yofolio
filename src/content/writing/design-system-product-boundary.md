@@ -5,7 +5,8 @@ topics:
   - design-systems
   - design
 readingTime: 8
-draft: true
+publishedAt: 2026-08-16
+draft: false
 ---
 
 A component library becomes a design system when teams can rely on its
