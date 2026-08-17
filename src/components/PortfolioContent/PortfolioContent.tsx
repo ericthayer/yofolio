@@ -6,6 +6,9 @@ import Grid from '@mui/material/Grid';
 import Stack from '@mui/material/Stack';
 import Typography from '@mui/material/Typography';
 
+import { Writing } from '../Writing';
+import type { WritingArticle } from '../../content/writing-model';
+
 interface CoreStrength {
   name: string;
   description: string;
@@ -42,7 +45,11 @@ const gameStatements: string[] = [
   'I created one cross-platform component library that rendered the same components in browsers and Unity VR.',
 ];
 
-export const PortfolioContent = () => {
+export interface PortfolioContentProps {
+  articles: WritingArticle[];
+}
+
+export const PortfolioContent = ({ articles }: PortfolioContentProps) => {
   return (
     <>
       <Box
@@ -179,6 +186,8 @@ export const PortfolioContent = () => {
           </Grid>
         </Container>
       </Box>
+
+      <Writing articles={articles} />
 
       <Box
         id='game'

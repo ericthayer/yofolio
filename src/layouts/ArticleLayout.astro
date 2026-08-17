@@ -1,0 +1,306 @@
+---
+import '@fontsource-variable/dm-sans/index.css';
+
+import YofolioLogo from '../assets/images/logo-light-ethayer-no-mark.svg';
+import ArticleMedia from '../components/ArticleMedia/ArticleMedia.astro';
+import type { ArticleMedia as ArticleMediaItem } from '../content/media-model';
+
+interface Props {
+  title: string;
+  summary: string;
+  topics: string[];
+  status: 'Draft' | 'Published';
+  readingTime: string;
+  publishedAt?: Date;
+  media?: ArticleMediaItem[];
+}
+
+const {
+  title,
+  summary,
+  topics,
+  status,
+  readingTime,
+  publishedAt,
+  media = [],
+} = Astro.props;
+---
+
+<!doctype html>
+<html lang='en'>
+  <head>
+    <meta charset='UTF-8' />
+    <meta
+      name='viewport'
+      content='width=device-width, initial-scale=1.0'
+    />
+    <meta
+      name='description'
+      content={summary}
+    />
+    <link
+      rel='icon'
+      href='/favicon.svg'
+      type='image/svg+xml'
+    />
+    <title>{title} — Eric Thayer</title>
+  </head>
+  <body>
+    <header class='site-header'>
+      <a
+        class='brand'
+        href='/'
+        aria-label='Eric Thayer home'
+      >
+        <img
+          src={YofolioLogo.src}
+          alt='Eric Thayer'
+          width='498'
+          height='43'
+        />
+      </a>
+      <nav aria-label='Article navigation'>
+        <a href='/#writing'>All writing</a>
+      </nav>
+    </header>
+
+    <main>
+      <article>
+        <header class='article-header'>
+          <p class='eyebrow'>{status} · {readingTime}</p>
+          <h1>{title}</h1>
+          <p class='summary'>{summary}</p>
+          <div class='article-meta'>
+            <span>{topics.join(' · ')}</span>
+            {
+              publishedAt ? (
+                <time datetime={publishedAt.toISOString()}>
+                  {publishedAt.toLocaleDateString('en-US', {
+                    year: 'numeric',
+                    month: 'long',
+                    day: 'numeric',
+                    timeZone: 'UTC',
+                  })}
+                </time>
+              ) : null
+            }
+          </div>
+        </header>
+
+        {media.length > 0 ? (
+          <div class='article-featured-media' aria-label='Article media'>
+            {media.map((item) => <ArticleMedia media={item} />)}
+          </div>
+        ) : null}
+
+        <div class='article-body'>
+          <slot />
+        </div>
+      </article>
+    </main>
+
+    <footer>
+      <span>© {new Date().getFullYear()} Eric Thayer.</span>
+      <a href='/#writing'>Writing</a>
+    </footer>
+  </body>
+</html>
+
+<style is:global>
+  @view-transition {
+    navigation: auto;
+  }
+
+  :root {
+    color-scheme: light dark;
+    font-family:
+      'DM Sans Variable', system-ui, Avenir, Helvetica, Arial, sans-serif;
+    font-synthesis: none;
+    text-rendering: optimizeLegibility;
+    -webkit-font-smoothing: antialiased;
+    --background: #fcfcfc;
+    --surface: #f1f2f4;
+    --text: #3f454b;
+    --muted: #4e555c;
+    --border: #dce0e5;
+    --accent: #c9057e;
+  }
+
+  * {
+    box-sizing: border-box;
+  }
+
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    min-width: 320px;
+    min-height: 100vh;
+    margin: 0;
+    background: var(--background);
+    color: var(--text);
+  }
+
+  a {
+    color: inherit;
+    text-underline-offset: 0.18em;
+  }
+
+  a:hover {
+    color: var(--accent);
+  }
+
+  a:focus-visible {
+    outline: 3px solid var(--accent);
+    outline-offset: 4px;
+  }
+
+  .site-header,
+  footer {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    padding: 1rem clamp(1.5rem, 4vw, 4rem);
+    background: var(--surface);
+  }
+
+  .site-header {
+    position: sticky;
+    z-index: 10;
+    top: 0;
+  }
+
+  .brand {
+    display: flex;
+  }
+
+  .brand img {
+    width: min(11rem, 48vw);
+    height: auto;
+    filter: invert(0.8);
+  }
+
+  main {
+    width: min(100% - 3rem, 72rem);
+    margin-inline: auto;
+    padding-block: clamp(4rem, 8vw, 8rem);
+  }
+
+  article {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+    gap: clamp(3rem, 7vw, 6rem);
+  }
+
+  .article-header {
+    max-width: 60rem;
+  }
+
+  .eyebrow {
+    margin: 0 0 1rem;
+    font-size: 0.75rem;
+    font-weight: 650;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+
+  h1 {
+    max-width: 18ch;
+    margin: 0;
+    font-size: clamp(2.5rem, 7vw, 5rem);
+    line-height: 1.05;
+    letter-spacing: -0.03em;
+    text-wrap: balance;
+  }
+
+  .summary {
+    max-width: 65ch;
+    margin: 2rem 0 0;
+    font-size: clamp(1.125rem, 2vw, 1.35rem);
+    line-height: 1.6;
+  }
+
+  .article-meta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem 1.5rem;
+    margin-top: 2rem;
+    color: var(--muted);
+    font-size: 0.875rem;
+  }
+
+  .article-body {
+    max-width: 68ch;
+    font-size: clamp(1rem, 1.5vw, 1.125rem);
+    line-height: 1.75;
+  }
+
+  .article-featured-media {
+    max-width: 68ch;
+  }
+
+  .article-body img,
+  .article-body video {
+    display: block;
+    width: 100%;
+    height: auto;
+  }
+
+  .article-body figure {
+    margin: 3rem 0;
+  }
+
+  .article-body figcaption {
+    margin-top: 0.75rem;
+    color: var(--muted);
+    font-size: 0.875rem;
+    line-height: 1.5;
+  }
+
+  .article-body h2 {
+    margin: 3rem 0 1rem;
+    font-size: clamp(1.5rem, 3vw, 2rem);
+    line-height: 1.25;
+    letter-spacing: -0.01em;
+  }
+
+  .article-body p {
+    margin: 0 0 1.5rem;
+  }
+
+  footer {
+    justify-content: flex-start;
+    flex-wrap: wrap;
+    font-size: 0.875rem;
+  }
+
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --background: #2c3035;
+      --surface: #4e555c;
+      --text: #f1f2f4;
+      --muted: #dce0e5;
+      --border: #838c96;
+      --accent: #ff6ec7;
+    }
+
+    .brand img {
+      filter: none;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    html {
+      scroll-behavior: auto;
+    }
+
+    ::view-transition-old(*),
+    ::view-transition-new(*),
+    ::view-transition-group(*) {
+      animation-duration: 0s !important;
+      animation-delay: 0s !important;
+    }
+  }
+</style>
