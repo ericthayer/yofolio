@@ -5,7 +5,8 @@ topics:
   - design
   - ux
 readingTime: 7
-draft: true
+publishedAt: 2026-08-16
+draft: false
 ---
 
 Good interface design does not begin with arranging components. It begins with

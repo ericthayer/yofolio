@@ -5,7 +5,8 @@ topics:
   - frontend
   - design-systems
 readingTime: 9
-draft: true
+publishedAt: 2026-08-16
+draft: false
 ---
 
 The goal of implementation is not to reproduce a design file node for node. It

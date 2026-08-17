@@ -5,7 +5,8 @@ topics:
   - frontend
   - design-systems
 readingTime: 6
-draft: true
+publishedAt: 2026-08-16
+draft: false
 ---
 
 Every component API teaches developers how the system expects a product to be
